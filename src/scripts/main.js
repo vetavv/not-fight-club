@@ -1,2 +1,3 @@
-import general from "./../styles/general.css";
-import logo from "./../assets/favicon.ico";
+import "./../styles/fonts.css";
+import "./../styles/general.css";
+import "./../assets/favicon.ico";

@@ -1,5 +1,10 @@
-body {
+.page {
   margin: 0;
+  font-family: Abaddon;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1;
+  text-transform: lowercase;
 }
 
 .background,
