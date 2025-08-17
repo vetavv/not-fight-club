@@ -107,3 +107,29 @@
   border-color: var(--color-accent);
   transition: all 0.2s ease-in;
 }
+
+.main-btn {
+  font-size: 40px;
+  line-height: 60px;
+  font-family: inherit;
+  color: var(--color-accent);
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-tranparent);
+  padding-inline: 50px;
+  transition: all 0.2s ease-out;
+  position: absolute;
+  margin-left: 50%;
+  margin-top: calc(50vh - var(--header-height));
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.main-btn:hover,
+.main-btn:active {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  border-color: var(--color-accent);
+  transition: all 0.2s ease-in;
+}
