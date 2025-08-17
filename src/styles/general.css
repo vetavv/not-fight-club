@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+}
+
+.background,
+.background > .background,
+.background > .background > .background,
+.background > .background > .background > .background {
+  width: 100vw;
+  height: 100vh;
+  background-size: auto 100vh;
+  background-position: top left;
+  background-repeat: repeat-x;
+}
+
+.move {
+  animation-name: move;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.background {
+  background-image: url("../assets/images/background/sea1.png");
+  animation-duration: 120s;
+}
+
+.background > .background {
+  background-image: url("../assets/images/background/sea2.png");
+  animation-duration: 100s;
+}
+
+.background > .background > .background {
+  background-image: url("../assets/images/background/sea3.png");
+  animation-duration: 80s;
+}
+
+.background > .background > .background > .background {
+  background-image: url("../assets/images/background/sea4.png");
+  animation-duration: 60s;
+}
+
+@keyframes move {
+  from {
+    background-position: 0;
+  }
+  to {
+    background-position: -100vw;
+  }
+}
