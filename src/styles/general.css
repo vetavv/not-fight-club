@@ -1,3 +1,14 @@
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
+}
+
 .page {
   margin: 0;
   font-family: Abaddon;
@@ -23,12 +34,6 @@
   background-repeat: repeat-x;
 }
 
-/* .move {
-  animation-name: move;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-} */
-
 .background {
   background-image: url("../assets/images/background/sea1.png");
   animation-duration: 120s;
@@ -49,6 +54,12 @@
   animation-duration: 60s;
 }
 
+/* .move {
+  animation-name: move;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+} */
+
 @keyframes move {
   from {
     background-position: 0;
@@ -58,17 +69,17 @@
   }
 }
 
+.container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 40px;
+}
+
 .page__header {
   width: 100%;
   height: var(--header-height);
   display: flex;
   justify-content: space-between;
-}
-
-.container {
-  max-width: 1440px;
-  margin-inline: auto;
-  padding-inline: 40px;
 }
 
 .logo-link {
@@ -93,11 +104,13 @@
   list-style: none;
 }
 
-.nav__link {
+.btn {
   display: block;
   box-sizing: border-box;
   font-size: 24px;
   line-height: 42px;
+  font-family: inherit;
+  text-transform: inherit;
   padding-inline: 36px;
   color: var(--color-accent);
   background-color: var(--color-bg-tranparent);
@@ -108,13 +121,26 @@
   cursor: pointer;
 }
 
-.nav__link:hover,
-.nav__link:active,
-.nav__link.current {
+.btn:hover,
+.btn:active,
+.btn.current {
   background-color: var(--color-accent);
   color: var(--color-bg);
   border-color: var(--color-accent);
   transition: all 0.2s ease-in;
+}
+
+.btn_dark {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.btn_dark:hover,
+.btn_dark:active,
+.btn_dark.current {
+  background-color: var(--color-bg-tranparent);
+  color: var(--color-accent);
+  border-color: var(--color-border);
 }
 
 .main-btn {
@@ -141,4 +167,135 @@
   color: var(--color-bg);
   border-color: var(--color-accent);
   transition: all 0.2s ease-in;
+}
+
+.block {
+  padding: 40px 0;
+  background-color: var(--color-bg-tranparent);
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.page_profile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.title {
+  margin: 0;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.subsection {
+  padding: 0 50px;
+  box-sizing: border-box;
+  height: calc(100vh - 2 * var(--header-height));
+}
+
+.hero__img-container {
+  position: relative;
+  --hero-size: 240px;
+  height: var(--hero-size);
+  width: var(--hero-size);
+  margin-left: -50px;
+}
+
+.hero__img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: url("./../assets/images/heroes/turtle/Idle.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: auto 100%;
+  image-rendering: pixelated;
+}
+
+.idle {
+  animation: idle 1s steps(4) infinite;
+}
+
+@keyframes idle {
+  from {
+    background-position: 0;
+  }
+
+  to {
+    background-position: calc(-240px * 4);
+  }
+}
+
+.hero__img-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 55%;
+  height: 55%;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+}
+
+.hero__name {
+  margin: 0;
+  margin-bottom: 30px;
+  font-size: 40px;
+}
+
+.list {
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.list__item {
+  display: flex;
+  font-size: 24px;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.list__key::after {
+  content: ":";
+}
+
+.list__value {
+  margin: 0;
+  color: var(--color-accent);
+}
+
+.stats__item {
+  position: relative;
+  padding-left: 60px;
+  margin-bottom: 50px;
+  line-height: 40px;
+}
+
+.title_stats {
+  margin-bottom: 40px;
+}
+
+.stats__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 40px;
+  width: 40px;
+  background-image: url("./../assets/images/decor/win.png");
+  background-position: center left;
+  background-repeat: no-repeat;
+}
+
+.stats__item:nth-child(2)::before {
+  background-image: url("./../assets/images/decor/fail.png");
 }

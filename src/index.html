@@ -13,21 +13,75 @@
             <div class="background move">
                 <div class="background move">
                     <div class="container">
+
                         <header class="page__header">
                             <button class="logo-link" disabled>Ocean battle</button>
                             <nav class="page__nav nav">
                                 <ul class="nav__list">
                                     <li class="nav__item">
-                                        <button class="nav__link">Profile</button>
+                                        <button class="btn">Profile</button>
                                     </li>
                                     <li class="nav__item">
-                                        <button class="nav__link">Settings</button>
+                                        <button class="btn">Settings</button>
                                     </li>
                                 </ul>
                             </nav>
                         </header>
+
                         <main class="page__main">
-                            <button class="main-btn" ">start game</button>
+                            <h1 class="visually-hidden">Fight-club game "Ocean Battle".</h1>
+
+                            <section class="page__home" hidden>
+                                <h2 class="visually-hidden">Home of the game.</h2>
+                                <button class="main-btn">Start game</button>
+                            </section>
+
+                            <div class="page_profile">
+                                <section class="block hero">
+                                    <h2 class="visually-hidden">Hero profile.</h2>
+                                    <div class="subsection">
+                                        <h3 class="title">Info</h3>
+                                        <div class="hero__img-container">
+                                            <div class="hero__img idle"></div>
+                                        </div>
+                                        <p class="hero__name">Veta</p>
+                                        <dl class="list">
+                                            <div class="list__item">
+                                                <dt class="list__key">Hero</dt>
+                                                <dd class="list__value">Turtle</dd>
+                                            </div>
+                                            <div class="list__item">
+                                                <dt class="list__key">Life</dt>
+                                                <dd class="list__value">150</dd>
+                                            </div>
+                                            <div class="list__item">
+                                                <dt class="list__key">Attack power</dt>
+                                                <dd class="list__value">2</dd>
+                                            </div>
+                                            <div class="list__item">
+                                                <dt class="list__key">Defense power</dt>
+                                                <dd class="list__value">1</dd>
+                                            </div>
+                                        </dl>
+                                        <button class="btn btn_dark">Change</button>
+                                    </div>
+
+                                    <div class="subsection">
+                                        <h3 class="title title_stats">Statistics</h3>
+                                        <dl class="list stats__list">
+                                            <div class="list__item stats__item">
+                                                <dt class="list__key stats__key">Wins</dt>
+                                                <dd class="list__value stats__value">5</dd>
+                                            </div>
+                                            <div class="list__item stats__item">
+                                                <dt class="list__key stats__key">Fails</dt>
+                                                <dd class="list__value stats__value">5</dd>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                </section>
+                                <section></section>
+                            </div>
                         </main>
                     </div>
                 </div>
