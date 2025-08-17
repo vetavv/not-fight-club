@@ -17,18 +17,6 @@ module.exports = {
       template: "index.html",
       filename: "index.html",
     }),
-    new HtmlWebpackPlugin({
-      template: "./pages/battle.html",
-      filename: "battle.html",
-    }),
-    new HtmlWebpackPlugin({
-      template: "pages/profile.html",
-      filename: "profile.html",
-    }),
-    new HtmlWebpackPlugin({
-      template: "pages/settings.html",
-      filename: "settings.html",
-    }),
   ],
 
   module: {

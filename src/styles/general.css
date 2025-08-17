@@ -23,11 +23,11 @@
   background-repeat: repeat-x;
 }
 
-.move {
+/* .move {
   animation-name: move;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-}
+} */
 
 .background {
   background-image: url("../assets/images/background/sea1.png");
@@ -72,12 +72,15 @@
 }
 
 .logo-link {
+  font-family: inherit;
   font-size: 30px;
   font-weight: bold;
   line-height: var(--header-height);
   color: inherit;
   text-transform: uppercase;
   text-decoration: none;
+  background-color: transparent;
+  border: none;
 }
 
 .nav__list {
@@ -102,6 +105,7 @@
   border-radius: 30px;
   border: 1px solid var(--color-border);
   transition: all 0.2s ease-out;
+  cursor: pointer;
 }
 
 .nav__link:hover,
