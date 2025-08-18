@@ -222,6 +222,10 @@
   image-rendering: pixelated;
 }
 
+.hero_reverse .hero__img {
+  transform: scaleX(-1);
+}
+
 .idle {
   animation: idle 1s steps(4) infinite;
 }
@@ -381,4 +385,141 @@
 
 .card .list {
   margin-bottom: 0;
+}
+
+.battle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.block_battle {
+  grid-column: 1 / 3;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 70px 40px;
+}
+
+.battle .hero__img-container {
+  margin: 0;
+}
+
+.battle .hero__img-container::before {
+  display: none;
+}
+
+.life__container {
+  height: 20px;
+  width: 180px;
+  background-color: #fff;
+  border: 1px solid var(--color-border);
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.life__range {
+  inset: 0;
+  right: 20%;
+  background-color: var(--color-accent);
+  position: absolute;
+  border-right: 1px solid var(--color-border);
+}
+
+.fight-form-container {
+  padding-top: 30px;
+  flex-grow: 1;
+}
+
+.fight-form__groups {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 80px;
+}
+
+.fight-form__group {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fight-form__btn {
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.fight-form__title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  display: none;
+}
+
+input + span {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-border);
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+input[type="radio"] + span {
+  border-radius: 50%;
+}
+
+input[type="radio"]:checked + span::before {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input[type="checkbox"]:checked + span::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("./../assets/images/decor/check_filled.svg");
+  background-size: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.fight-form__input {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.fight-form__label {
+  font-size: 20px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.life__value {
+  margin: 0;
+  text-align: center;
 }

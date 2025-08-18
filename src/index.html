@@ -36,7 +36,7 @@
                                 <button class="main-btn">Start game</button>
                             </section>
 
-                            <div class="page_profile ">
+                            <div class="page_profile hidden">
                                 <section class="block profile">
                                     <h2 class="visually-hidden">Hero profile.</h2>
                                     <div class="subsection">
@@ -109,6 +109,100 @@
                                     </ul>
                                 </section>
                             </div>
+                            <section class="battle">
+                                <div class="block block_battle">
+                                    <div class="hero">
+                                        <div class="hero__img-container">
+                                            <div class="hero__img idle"></div>
+                                        </div>
+                                        <div class="life">
+                                            <div class="life__container">
+                                                <div class="life__range"></div>
+                                            </div>
+                                            <p class="life__value">130/150</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="fight-form-container">
+                                        <form class="fight-form">
+                                            <div class="fight-form__groups">
+                                                <fieldset class="fight-form__group">
+                                                    <legend class="fight-form__title">Attack zones:</legend>
+                                                    <label class="fight-form__input" for="attack-head">
+                                                        <input type="radio" id="attack-head" name="attack">
+                                                        <span></span>
+                                                        <span class="fight-form__label">Head</span>
+                                                    </label>
+                                                    <label class="fight-form__input" for="attack-body">
+                                                        <input type="radio" id="attack-body" name="attack">
+                                                        <span></span>
+                                                        <span class="fight-form__label">Body</span>
+                                                    </label>
+                                                    <label class="fight-form__input" for="attack-legs">
+                                                        <input type="radio" id="attack-legs" name="attack">
+                                                        <span></span>
+                                                        <span class="fight-form__label">Legs</span>
+                                                    </label>
+                                                    <label class="fight-form__input" for="attack-back">
+                                                        <input type="radio" id="attack-back" name="attack">
+                                                        <span></span>
+                                                        <span class="fight-form__label">Back</span>
+                                                    </label>
+                                                    <label class="fight-form__input" for="attack-nose">
+                                                        <input type="radio" id="attack-nose" name="attack">
+                                                        <span></span>
+                                                        <span class="fight-form__label">Nose</span>
+                                                    </label>
+                                                </fieldset>
+
+                                                <fieldset class="fight-form__group">
+                                                    <legend class="fight-form__title">Defense zones:</legend>
+                                                    <label class="fight-form__input" for="defense-head">
+                                                        <input type="checkbox" id="defense-head" name="defense">
+                                                        <span></span>
+                                                        <span class="fight-form__label">Head</span>
+                                                    </label>
+                                                    <label class="fight-form__input" for="defense-body">
+                                                        <input type="checkbox" id="defense-body" name="defense">
+                                                        <span></span>
+                                                        <span class="fight-form__label">Body</span>
+                                                    </label>
+                                                    <label class="fight-form__input" for="defense-legs">
+                                                        <input type="checkbox" id="defense-legs" name="defense">
+                                                        <span></span>
+                                                        <span class="fight-form__label">Legs</span>
+                                                    </label>
+                                                    <label class="fight-form__input" for="defense-back">
+                                                        <input type="checkbox" id="defense-back" name="defense">
+                                                        <span></span>
+                                                        <span class="fight-form__label">Back</span>
+                                                    </label>
+                                                    <label class="fight-form__input" for="defense-nose">
+                                                        <input type="checkbox" id="defense-nose" name="defense">
+                                                        <span></span>
+                                                        <span class="fight-form__label">Nose</span>
+                                                    </label>
+                                                </fieldset>
+                                            </div>
+
+                                            <button class="btn btn_dark fight-form__btn" type="submit">Confirm</button>
+                                        </form>
+                                    </div>
+                                    <div class="hero hero_reverse">
+                                        <div class="hero__img-container">
+                                            <div class="hero__img idle"></div>
+                                        </div>
+                                        <div class="life">
+                                            <div class="life__container">
+                                                <div class="life__range"></div>
+                                            </div>
+                                            <p class="life__value">130/150</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block"></div>
+                                <div class="block"></div>
+                            </section>
                         </main>
                     </div>
                 </div>
