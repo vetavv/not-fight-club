@@ -52,7 +52,7 @@ export function render(game) {
     case STATES.FIGHT:
       generateEnemyMove(game);
       calcLifes(game);
-      if (game.hero.currentLife <= 0) {
+      if (game.hero.currentLife <= 0 || game.enemy.currentLife <= 0) {
         game.transition(EVENTS.RESULT_DEAD);
         render(game);
       } else {
