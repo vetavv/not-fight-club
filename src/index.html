@@ -42,7 +42,7 @@
                                     <div class="character">
                                         <div class="character__img idle" id="profileImg"></div>
                                     </div>
-                                    <p class="profile__name">Veta</p>
+                                    <p class="profile__name" id="profileName">Unknown gamer</p>
                                     <dl class="list">
                                         <div class="list__item">
                                             <dt class="list__key">Hero</dt>
@@ -149,6 +149,32 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal" id="auth">
+        <div class="modal-content">
+            <button class="modal__close"><span class="visually-hidden">Close modal window.</span></button>
+            <p class="modal__title">What’s your name?</p>
+            <form class="auth-form" id="auth-form">
+                <input class="input" type="text" id="authName">
+                <button class="btn btn_dark auth-form__btn" type="submit">Next ></button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="win">
+        <div class="modal-content">
+            <button class="modal__close"><span class="visually-hidden">Close modal window.</span></button>
+            <p class="modal__title">You win!</p>
+            <button class="btn btn_dark">Profile ></button>
+        </div>
+    </div>
+
+    <div class="modal" id="lose">
+        <div class="modal-content">
+            <button class="modal__close"><span class="visually-hidden">Close modal window.</span></button>
+            <p class="modal__title">You lose!</p>
+            <button class="btn btn_dark">Profile ></button>
         </div>
     </div>
 </body>

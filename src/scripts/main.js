@@ -12,6 +12,8 @@ import {
   updateProfile,
   setActiveCharacter,
   fillForm,
+  openModal,
+  closeModal,
 } from "./gameView.js";
 
 import { render, saveFormData, validateForm } from "./gameControllers.js";
@@ -28,11 +30,15 @@ import {
   chooseHeroBlock,
   heroesList,
   enemiesList,
-  blocks,
   heroImgBattle,
   enemyImgBattle,
   heroLifeBattle,
   enemyLifeBattle,
+  authForm,
+  auth,
+  profileName,
+  winModalBtn,
+  loseModalBtn,
 } from "./domElements.js";
 import { initGameUI } from "./gameControllers.js";
 
@@ -63,8 +69,12 @@ changeBtn.addEventListener("click", (e) => {
 });
 
 startBtn.addEventListener("click", (e) => {
-  game.transition(EVENTS.START_CLICKED);
-  render(game);
+  if (!game.name) {
+    openModal(auth);
+  } else {
+    game.transition(EVENTS.START_CLICKED);
+    render(game);
+  }
 });
 
 form.addEventListener("submit", (e) => {
@@ -97,4 +107,29 @@ enemiesList.addEventListener("click", (e) => {
     updateBattleBlock(enemyImgBattle, enemyLifeBattle, game.enemy.data);
     fillForm(form, game.hero.data, game.enemy.data);
   }
+});
+
+authForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  game.name = e.target.authName.value;
+  profileName.textContent = game.name;
+  closeModal(auth);
+  game.transition(EVENTS.START_CLICKED);
+  render(game);
+});
+
+winModalBtn.addEventListener("click", (e) => {
+  const modal = e.target.closest(".modal");
+  game.transition(EVENTS.RESULT_CONFIRMED);
+  render(game);
+  switchOverBlocks(profileBlock);
+  closeModal(modal);
+});
+
+loseModalBtn.addEventListener("click", (e) => {
+  const modal = e.target.closest(".modal");
+  game.transition(EVENTS.RESULT_CONFIRMED);
+  render(game);
+  switchOverBlocks(profileBlock);
+  closeModal(modal);
 });

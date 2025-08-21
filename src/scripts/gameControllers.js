@@ -7,6 +7,7 @@ import {
   switchOverBlocks,
   fillForm,
   updateLifeBar,
+  openModal,
 } from "./gameView.js";
 import {
   resetEnemyMove,
@@ -29,6 +30,8 @@ import {
   enemyLifeBattle,
   enemyLifeValue,
   heroLifeValue,
+  winModal,
+  loseModal,
 } from "./domElements.js";
 
 export function render(game) {
@@ -66,14 +69,16 @@ export function render(game) {
       console.log("finish");
       if (game.hero.currentLife === 0) {
         game.fails += 1;
+        openModal(loseModal);
       } else {
         game.wins += 1;
+        openModal(winModal);
       }
       document.querySelector("#statWins").textContent = game.wins;
       document.querySelector("#statFails").textContent = game.fails;
       resetRound(game);
-      game.transition(EVENTS.RESULT_CONFIRMED);
-      render(game);
+      // game.transition(EVENTS.RESULT_CONFIRMED);
+      // render(game);
       break;
     default:
       break;

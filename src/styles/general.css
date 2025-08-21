@@ -31,6 +31,14 @@
   cursor: url("./../assets/images/decor/cursor.png") 4 4, auto;
 }
 
+.page.modal-open * {
+  animation-play-state: paused !important;
+}
+
+.page.modal-open {
+  overflow: hidden;
+}
+
 .page__main {
   width: 100%;
   height: calc(100vh - var(--header-height));
@@ -335,14 +343,14 @@
   transform: translateY(-50%);
   height: 40px;
   width: 40px;
-  background-image: url("./../assets/images/decor/win.png");
+  background-image: url("./../assets/images/decor/win.svg");
   background-position: center left;
   background-repeat: no-repeat;
   image-rendering: pixelated;
 }
 
 .list_stats .list__item:nth-child(2)::before {
-  background-image: url("./../assets/images/decor/fail.png");
+  background-image: url("./../assets/images/decor/fail.svg");
 }
 
 .choose__title {
@@ -567,4 +575,106 @@ input[type="checkbox"]:checked + span::before {
 .log {
   width: 100%;
   height: auto;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  padding: 30px 75px;
+  border-radius: 30px;
+  max-width: 600px;
+  width: 80%;
+  position: relative;
+  box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.modal__close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border-radius: 30px;
+  border: 0;
+  height: 40px;
+  width: 40px;
+  background-image: url("./../assets/images/decor/cross.svg");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  transition: all 0.2s ease-out;
+}
+
+.modal__close:hover {
+  opacity: 0.7;
+  transition: all 0.3s ease-in;
+}
+
+.modal__close:active {
+  opacity: 0.9;
+}
+
+.modal__title {
+  margin: 0;
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 48px;
+  color: var(--color-accent);
+}
+
+.input {
+  display: block;
+  width: 100%;
+  margin-bottom: 40px;
+  box-sizing: border-box;
+  border: 1px solid var(--color-border);
+  background-color: #f4feff;
+  font-size: 40px;
+  font-family: Abaddon;
+  padding: 20px 40px;
+  border-radius: 20px;
+}
+
+.input:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: -1px;
+}
+
+.modal .btn {
+  margin-inline: auto;
+}
+
+#win .modal__title::after,
+#lose .modal__title::after {
+  content: "";
+  display: block;
+  height: 200px;
+  width: 200px;
+  margin-inline: auto;
+  background-image: url("./../assets/images/decor/win.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  margin-top: 20px;
+}
+
+#lose .modal__title::after {
+  background-image: url("./../assets/images/decor/fail.svg");
 }

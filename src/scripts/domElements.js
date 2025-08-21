@@ -1,3 +1,11 @@
+export const page = document.querySelector(".page");
+export const auth = document.querySelector("#auth");
+export const authForm = document.querySelector("#auth-form");
+export const winModal = document.querySelector("#win");
+export const winModalBtn = winModal.querySelector(".btn");
+export const loseModal = document.querySelector("#lose");
+export const loseModalBtn = loseModal.querySelector(".btn");
+
 export const startBlock = document.querySelector("#home");
 export const figthBlock = document.querySelector("#battle");
 export const profileBlock = document.querySelector("#profile");
@@ -40,6 +48,7 @@ export const attackZones = document.querySelector("#attackZones");
 
 // profile block
 export const heroImgProfile = document.querySelector("#profileImg");
+export const profileName = document.querySelector("#profileName");
 export const heroName = document.querySelector("#profileHero");
 export const profileLife = document.querySelector("#profileLife");
 export const profileAttackCount = document.querySelector("#profileAttackCount");

@@ -8,6 +8,7 @@ import {
   profileDefenseCount,
   defenseZones,
   attackZones,
+  page,
 } from "./domElements.js";
 
 export function activateNavBtn(btn) {
@@ -164,4 +165,14 @@ function createInput(value, name, type) {
   label.append(control);
   label.append(spanName);
   return label;
+}
+
+export function openModal(modal) {
+  modal.classList.add("open");
+  page.classList.add("modal-open");
+}
+
+export function closeModal(modal) {
+  modal.classList.remove("open");
+  page.classList.remove("modal-open");
 }
