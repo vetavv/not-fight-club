@@ -39,6 +39,12 @@ import {
   profileName,
   winModalBtn,
   loseModalBtn,
+  modalCloseBtns,
+  modals,
+  navBtns,
+  changeNameBtn,
+  page,
+  chooseEnemyBtn,
 } from "./domElements.js";
 import { initGameUI } from "./gameControllers.js";
 
@@ -47,10 +53,22 @@ const game = new Game();
 initGameUI(game);
 render(game);
 
+// for chrome bag with custom cursor
+document.querySelector("main").addEventListener("mouseenter", () => {
+  document.body.style.cursor =
+    'url("./../assets/images/decor/cursor.png"), auto';
+});
+
 // listeners
 navProfile.addEventListener("click", (e) => {
-  switchOverBlocks(profileBlock);
-  activateNavBtn(e.target);
+  if (!game.name) {
+    openModal(auth);
+    authForm.username.focus();
+    auth.dataset.btnid = e.target.getAttribute("id");
+  } else {
+    switchOverBlocks(profileBlock);
+    activateNavBtn(e.target);
+  }
 });
 
 navHome.addEventListener("click", (e) => {
@@ -59,8 +77,14 @@ navHome.addEventListener("click", (e) => {
 });
 
 navSettings.addEventListener("click", (e) => {
-  switchOverBlocks(chooseHeroBlock, chooseEnemyBlock);
-  activateNavBtn(e.target);
+  if (!game.name) {
+    openModal(auth);
+    authForm.username.focus();
+    auth.dataset.btnid = e.target.getAttribute("id");
+  } else {
+    switchOverBlocks(chooseHeroBlock, chooseEnemyBlock);
+    activateNavBtn(e.target);
+  }
 });
 
 changeBtn.addEventListener("click", (e) => {
@@ -71,6 +95,8 @@ changeBtn.addEventListener("click", (e) => {
 startBtn.addEventListener("click", (e) => {
   if (!game.name) {
     openModal(auth);
+    authForm.username.focus();
+    auth.dataset.btnid = e.target.getAttribute("id");
   } else {
     game.transition(EVENTS.START_CLICKED);
     render(game);
@@ -109,13 +135,42 @@ enemiesList.addEventListener("click", (e) => {
   }
 });
 
+changeNameBtn.addEventListener("click", () => {
+  openModal(auth);
+  authForm.username.focus();
+  auth.dataset.btnid = "";
+});
+
 authForm.addEventListener("submit", (e) => {
   e.preventDefault();
   game.name = e.target.authName.value;
   profileName.textContent = game.name;
   closeModal(auth);
-  game.transition(EVENTS.START_CLICKED);
-  render(game);
+  if (auth.dataset.btnid === "start") {
+    chooseEnemyBlock.classList.add("wide");
+    switchOverBlocks(chooseEnemyBlock);
+  } else {
+    try {
+      const btn = document.querySelector(`#${auth.dataset.btnid}`);
+      if (btn) {
+        btn.click();
+      }
+    } catch {}
+  }
+
+  e.target.authName.value = "";
+});
+
+authForm.addEventListener("input", (e) => {
+  const value = authForm.username.value;
+  const valid = /^[A-Za-z0-9._-]*$/.test(value);
+  if (!valid) {
+    authForm.classList.add("error");
+    authForm.username.value = value.replace(/[^A-Za-z0-9._-]/g, "");
+  } else {
+    authForm.classList.remove("error");
+  }
+  authForm.username.value = authForm.username.value.toLowerCase();
 });
 
 winModalBtn.addEventListener("click", (e) => {
@@ -132,4 +187,28 @@ loseModalBtn.addEventListener("click", (e) => {
   render(game);
   switchOverBlocks(profileBlock);
   closeModal(modal);
+});
+
+modalCloseBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const modal = e.target.closest(".modal");
+    if (modal) {
+      authForm.username.value = "";
+      closeModal(modal);
+    }
+  });
+});
+
+modals.forEach((modal) => {
+  modal.addEventListener("click", (e) => {
+    if (!e.target.closest(".modal-content")) {
+      closeModal(modal);
+    }
+  });
+});
+
+chooseEnemyBtn.addEventListener("click", (e) => {
+  chooseEnemyBlock.classList.remove("wide");
+  game.transition(EVENTS.START_CLICKED);
+  render(game);
 });

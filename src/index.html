@@ -9,174 +9,175 @@
 
 <body class="page">
     <div class="background move">
-        <div class="background move">
-            <div class="background move">
-                <div class="background move">
-                    <div class="container">
-                        <header class="header">
-                            <button class="logo" id="homeNav">Not fight club</button>
-                            <nav class="nav">
-                                <ul class="nav__list">
-                                    <li class="nav__item">
-                                        <button class="btn" id="profileNav">Profile</button>
-                                    </li>
-                                    <li class="nav__item">
-                                        <button class="btn" id="settingsNav">Settings</button>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </header>
 
-                        <main class="page__main">
-                            <h1 class="visually-hidden">Fighting game with underwater creatures.</h1>
+        <div class="container">
+            <header class="header">
+                <button class="logo" id="homeNav">Not fight club</button>
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <button class="btn" id="profileNav">Profile</button>
+                        </li>
+                        <li class="nav__item">
+                            <button class="btn" id="settingsNav">Settings</button>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
 
-                            <section class="home" id="home">
-                                <h2 class="visually-hidden">Home of the game.</h2>
-                                <button class="main-btn" id="start">New fight</button>
-                            </section>
+            <main class="page__main" id="test">
+                <h1 class="visually-hidden">Fighting game with underwater creatures.</h1>
 
-                            <section class="block profile" id="profile">
-                                <h2 class="visually-hidden">Hero profile.</h2>
-                                <div class="subsection">
-                                    <h3 class="title">Info</h3>
-                                    <div class="character">
-                                        <div class="character__img idle" id="profileImg"></div>
-                                    </div>
-                                    <p class="profile__name" id="profileName">Unknown gamer</p>
-                                    <dl class="list">
-                                        <div class="list__item">
-                                            <dt class="list__key">Hero</dt>
-                                            <dd class="list__value" id="profileHero"></dd>
-                                        </div>
-                                        <div class="list__item">
-                                            <dt class="list__key">Life</dt>
-                                            <dd class="list__value" id="profileLife"></dd>
-                                        </div>
-                                        <div class="list__item">
-                                            <dt class="list__key">Attack power</dt>
-                                            <dd class="list__value" id="profileAttackCount"></dd>
-                                        </div>
-                                        <div class="list__item">
-                                            <dt class="list__key">Defense power</dt>
-                                            <dd class="list__value" id="profileDefenseCount"></dd>
-                                        </div>
-                                    </dl>
-                                    <button class="btn btn_dark profile__btn" id="chooseHeroProfile">Change</button>
-                                </div>
+                <section class="home" id="home">
+                    <h2 class="visually-hidden">Home of the game.</h2>
+                    <button class="main-btn" id="start">New fight</button>
+                </section>
 
-                                <div class="subsection">
-                                    <h3 class="title title_stats">Statistics</h3>
-                                    <dl class="list list_stats">
-                                        <div class="list__item">
-                                            <dt class="list__key">Wins</dt>
-                                            <dd class="list__value" id="statWins">0</dd>
-                                        </div>
-                                        <div class="list__item">
-                                            <dt class="list__key">Fails</dt>
-                                            <dd class="list__value" id="statFails">0</dd>
-                                        </div>
-                                    </dl>
-                                </div>
-                            </section>
-
-                            <section class="battle" id="battle">
-                                <div class="block arena">
-                                    <div class="hero">
-                                        <div class="character">
-                                            <div class="character__img idle" id="battleHeroImg"></div>
-                                        </div>
-                                        <div class="life">
-                                            <div class="life__container">
-                                                <div class="life__range" id="heroLifeBar"></div>
-                                            </div>
-                                            <p class="life__value">
-                                                <span id="battleHeroCurrentLife"></span>/<span
-                                                    id="battleHeroLife"></span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-container">
-                                        <form class="form" id="form">
-                                            <div class="form__groups">
-                                                <fieldset class="form__group">
-                                                    <legend class="form__title">Defense zones:</legend>
-                                                    <div class="form__group-container" id="defenseZones">
-                                                    </div>
-                                                </fieldset>
-
-                                                <fieldset class="form__group">
-                                                    <legend class="form__title">Attack zones:</legend>
-                                                    <div class="form__group-container" id="attackZones">
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-
-                                            <button class="btn btn_dark form__btn" type="submit"
-                                                id="formSubmit">Strike</button>
-                                        </form>
-                                    </div>
-
-                                    <div class="hero hero_reverse">
-                                        <div class="character">
-                                            <div class="character__img idle" id="battleEnemyImg"></div>
-                                        </div>
-                                        <div class="life">
-                                            <div class="life__container">
-                                                <div class="life__range" id="enemyLifeBar"></div>
-                                            </div>
-                                            <p class="life__value"><span class="life__current-value_enemy"
-                                                    id="battleEnemyCurrentLife"></span>/<span
-                                                    id="battleEnemyLife"></span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="block log"></div>
-                                <div class="block log"></div>
-                            </section>
-
-                            <section class="block choose" id="chooseHero">
-                                <h2 class="title choose__title">Choose hero</h2>
-                                <ul class="cards" id="heroesList"></ul>
-                            </section>
-
-                            <section class="block choose enemy" id="chooseEnemy">
-                                <h2 class="title choose__title">Choose enemy</h2>
-                                <ul class="cards" id="enemiesList">
-                                </ul>
-                            </section>
-                        </main>
+                <section class="block profile" id="profile">
+                    <h2 class="visually-hidden">Hero profile.</h2>
+                    <div class="subsection">
+                        <h3 class="title">Info</h3>
+                        <div class="character">
+                            <div class="character__img idle" id="profileImg"></div>
+                        </div>
                     </div>
-                </div>
+                    <div class="subsection subsection_big">
+                        <p class="profile__name" id="profileName">Unknown gamer</p>
+                        <button class="profile_change-name" id="changeName"><span class="visually-hidden">Change
+                                name</span></button>
+                        <dl class="list">
+                            <div class="list__item">
+                                <dt class="list__key">Hero</dt>
+                                <dd class="list__value" id="profileHero"></dd>
+                            </div>
+                            <div class="list__item">
+                                <dt class="list__key">Life</dt>
+                                <dd class="list__value" id="profileLife"></dd>
+                            </div>
+                            <div class="list__item">
+                                <dt class="list__key">Attack power</dt>
+                                <dd class="list__value" id="profileAttackCount"></dd>
+                            </div>
+                            <div class="list__item">
+                                <dt class="list__key">Defense power</dt>
+                                <dd class="list__value" id="profileDefenseCount"></dd>
+                            </div>
+                        </dl>
+                        <button class="btn btn_dark profile__btn" id="chooseHeroProfile">Change hero
+                        </button>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="title title_stats">Statistics</h3>
+                        <dl class="list list_stats">
+                            <div class="list__item">
+                                <dt class="list__key">Wins</dt>
+                                <dd class="list__value" id="statWins">0</dd>
+                            </div>
+                            <div class="list__item">
+                                <dt class="list__key">Fails</dt>
+                                <dd class="list__value" id="statFails">0</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="battle" id="battle">
+                    <div class="block arena">
+                        <div class="hero">
+                            <div class="character">
+                                <div class="character__img idle" id="battleHeroImg"></div>
+                            </div>
+                            <div class="life">
+                                <div class="life__container">
+                                    <div class="life__range" id="heroLifeBar"></div>
+                                </div>
+                                <p class="life__value">
+                                    <span id="battleHeroCurrentLife"></span>/<span id="battleHeroLife"></span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="form-container">
+                            <form class="form" id="form">
+                                <div class="form__groups">
+                                    <fieldset class="form__group">
+                                        <legend class="form__title">Defense zones:</legend>
+                                        <div class="form__group-container" id="defenseZones">
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="form__group">
+                                        <legend class="form__title">Attack zones:</legend>
+                                        <div class="form__group-container" id="attackZones">
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <button class="btn btn_dark form__btn" type="submit" id="formSubmit">Strike</button>
+                            </form>
+                        </div>
+
+                        <div class="hero hero_reverse">
+                            <div class="character">
+                                <div class="character__img idle" id="battleEnemyImg"></div>
+                            </div>
+                            <div class="life">
+                                <div class="life__container">
+                                    <div class="life__range" id="enemyLifeBar"></div>
+                                </div>
+                                <p class="life__value"><span class="life__current-value_enemy"
+                                        id="battleEnemyCurrentLife"></span>/<span id="battleEnemyLife"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block log"></div>
+                    <div class="block log"></div>
+                </section>
+
+                <section class="block choose" id="chooseHero">
+                    <h2 class="title choose__title">Choose hero</h2>
+                    <ul class="cards" id="heroesList"></ul>
+                </section>
+
+                <section class="block choose enemy" id="chooseEnemy">
+                    <h2 class="title choose__title">Choose enemy</h2>
+                    <ul class="cards" id="enemiesList">
+                    </ul>
+                    <button class="btn btn_dark" id="chooseEnemyBtn">Fight ></button>
+                </section>
+
+            </main>
+
+        </div>
+        <div class="modal" id="auth" data-btnid="">
+            <div class="modal-content">
+                <button class="modal__close"><span class="visually-hidden">Close modal window.</span></button>
+                <p class="modal__title">What’s your name?</p>
+                <form class="auth-form" id="auth-form">
+                    <input class="input" type="text" id="authName" name="username" spellcheck="false" autocomplete="off"
+                        required>
+                    <p class="authErr">Please use only English letters, numbers, "-", "." or "_"</p>
+                    <button class="btn btn_dark auth-form__btn" type="submit">Save</button>
+                </form>
             </div>
         </div>
-    </div>
-    <div class="modal" id="auth">
-        <div class="modal-content">
-            <button class="modal__close"><span class="visually-hidden">Close modal window.</span></button>
-            <p class="modal__title">What’s your name?</p>
-            <form class="auth-form" id="auth-form">
-                <input class="input" type="text" id="authName">
-                <button class="btn btn_dark auth-form__btn" type="submit">Next ></button>
-            </form>
-        </div>
-    </div>
 
-    <div class="modal" id="win">
-        <div class="modal-content">
-            <button class="modal__close"><span class="visually-hidden">Close modal window.</span></button>
-            <p class="modal__title">You win!</p>
-            <button class="btn btn_dark">Profile ></button>
+        <div class="modal" id="win">
+            <div class="modal-content">
+                <button class="modal__close"><span class="visually-hidden">Close modal window.</span></button>
+                <p class="modal__title">You win!</p>
+                <button class="btn btn_dark">Profile ></button>
+            </div>
         </div>
-    </div>
 
-    <div class="modal" id="lose">
-        <div class="modal-content">
-            <button class="modal__close"><span class="visually-hidden">Close modal window.</span></button>
-            <p class="modal__title">You lose!</p>
-            <button class="btn btn_dark">Profile ></button>
+        <div class="modal" id="lose">
+            <div class="modal-content">
+                <button class="modal__close"><span class="visually-hidden">Close modal window.</span></button>
+                <p class="modal__title">You lose!</p>
+                <button class="btn btn_dark">Profile ></button>
+            </div>
         </div>
-    </div>
 </body>
 
 </html>

@@ -68,8 +68,10 @@ export function createCard(character) {
 
   const fields = [
     ["Life", character.life],
-    ["Attack zones", character.attackZonesCount],
-    ["Defense zones", character.defenseZonesCount],
+    ["Attack power", character.attackZonesCount],
+    ["Defense power", character.defenseZonesCount],
+    ["Damage power", character.defenseZonesCount],
+    ["Crusial", character.defenseZonesCount],
   ];
 
   fields.forEach(([key, value]) => {

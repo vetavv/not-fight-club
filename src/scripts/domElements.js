@@ -5,6 +5,8 @@ export const winModal = document.querySelector("#win");
 export const winModalBtn = winModal.querySelector(".btn");
 export const loseModal = document.querySelector("#lose");
 export const loseModalBtn = loseModal.querySelector(".btn");
+export const modalCloseBtns = document.querySelectorAll(".modal .modal__close");
+export const modals = document.querySelectorAll(".modal");
 
 export const startBlock = document.querySelector("#home");
 export const figthBlock = document.querySelector("#battle");
@@ -29,6 +31,7 @@ export const startBtn = document.querySelector("#start");
 // chose block
 export const heroesList = document.querySelector("#heroesList");
 export const enemiesList = document.querySelector("#enemiesList");
+export const chooseEnemyBtn = document.querySelector("#chooseEnemyBtn");
 
 // battle block
 export const heroImgBattle = document.querySelector("#battleHeroImg");
@@ -56,3 +59,4 @@ export const profileDefenseCount = document.querySelector(
   "#profileDefenseCount"
 );
 export const changeBtn = document.querySelector("#chooseHeroProfile");
+export const changeNameBtn = document.querySelector("#changeName");
