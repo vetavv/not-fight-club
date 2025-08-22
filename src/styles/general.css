@@ -74,9 +74,9 @@ main {
     background-position: left bottom, left bottom, left bottom, left bottom;
   }
   100% {
-    background-position: left calc(var(--bgWidth) * -3) bottom,
+    background-position: left calc(var(--bgWidth) * -4) bottom,
+      left calc(var(--bgWidth) * -3) bottom,
       left calc(var(--bgWidth) * -2) bottom,
-      left calc(var(--bgWidth) * -1.5) bottom,
       left calc(var(--bgWidth) * -1) bottom;
   }
 }
