@@ -36,6 +36,8 @@ class Game {
       case STATES.READY:
         if (event === EVENTS.FORM_SUBMIT) {
           this.state = STATES.FIGHT;
+        } else if (event === EVENTS.RESULT_DEAD) {
+          this.state = STATES.FINISH;
         }
         break;
       case STATES.FIGHT:

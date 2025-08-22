@@ -50,18 +50,22 @@ export function resetEnemyMove(game) {
   game.enemy.currentDefenseZones = [];
 }
 
+import { heroLog, enemyLog } from "./domElements.js";
+
 export function calcLifes(game) {
   const enemyDamage = calcDamage(
-    game.hero.data,
-    game.enemy.data,
+    game.hero,
+    game.enemy,
     game.hero.currentAttackZones,
-    game.enemy.currentDefenseZones
+    game.enemy.currentDefenseZones,
+    enemyLog
   );
   const heroDamage = calcDamage(
-    game.enemy.data,
-    game.hero.data,
+    game.enemy,
+    game.hero,
     game.enemy.currentAttackZones,
-    game.hero.currentDefenseZones
+    game.hero.currentDefenseZones,
+    heroLog
   );
 
   game.enemy.currentLife -= enemyDamage;
@@ -77,26 +81,74 @@ export function calcLifes(game) {
   heroLifeValue.textContent = game.hero.currentLife;
 }
 
-function calcDamage(player1, player2, attackZones, defenseZones) {
+function calcDamage(player1, player2, attackZones, defenseZones, block) {
   let damage = 0;
+
+  const ul = document.createElement("ul");
+  ul.classList.add("log__block");
+
   attackZones.forEach((zone) => {
     if (!defenseZones.includes(zone)) {
-      damage += Number(player1.damagePower);
-      logSuccess(player1, player2, zone);
+      damage += Number(player1.data.damagePower);
+      logSuccess(player1, player2, zone, ul);
     } else {
-      logFail(player1, zone);
+      logFail(player1, player2, zone, ul);
     }
   });
+  block.prepend(ul);
   return damage;
 }
 
-function logSuccess(player1, player2, zone) {
-  console.log(
-    `${player1.name} beat ${zone} and got it`,
-    `${player2.name} -${player1.damagePower}`
+function logSuccess(player1, player2, zone, block) {
+  // console.log(
+  //   `${player1.name} beat ${zone} and got it`,
+  //   `${player2.name} -${player1.damagePower}`
+  // );
+
+  const li = document.createElement("li");
+  li.classList.add("log__item");
+  const name1 = document.createElement("span");
+  name1.textContent = player1.name ?? player1.data.name;
+  name1.classList.add("log__accent");
+  const name2 = document.createElement("span");
+  name2.textContent = player2.name ?? player2.data.name;
+  name2.classList.add("log__accent");
+  const zoneEl = document.createElement("span");
+  zoneEl.textContent = zone;
+  zoneEl.classList.add("log__accent");
+  const damage = document.createElement("span");
+  damage.textContent = `–${player1.data.damagePower}`;
+  damage.classList.add("log__bold");
+  li.append(
+    name1,
+    ` strikes `,
+    name2,
+    `’s `,
+    zoneEl,
+    `: `,
+    name2.cloneNode(true),
+    ` `,
+    damage
   );
+  block.append(li);
+  // heroLog.textContent = `${player1.name} attack ${zone} and got it
+  // ${player2.name} -${player1.damagePower}`;
 }
 
-function logFail(player, zone) {
-  console.log(`${player.name} beat ${zone} and not got it`);
+function logFail(player1, player2, zone, block) {
+  // console.log(`${player.name} beat ${zone} and not got it`);
+
+  const li = document.createElement("li");
+  li.classList.add("log__item");
+  const name1 = document.createElement("span");
+  name1.textContent = player1.name ?? player1.data.name;
+  name1.classList.add("log__accent");
+  const name2 = document.createElement("span");
+  name2.textContent = player2.name ?? player2.data.name;
+  name2.classList.add("log__accent");
+  const zoneEl = document.createElement("span");
+  zoneEl.textContent = zone;
+  zoneEl.classList.add("log__accent");
+  li.append(name1, ` tried to hit `, name2, `’s `, zoneEl, ` but failed.`);
+  block.append(li);
 }

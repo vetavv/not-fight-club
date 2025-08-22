@@ -3,7 +3,7 @@ import "./../styles/vars.css";
 import "./../styles/general.css";
 import "./../assets/favicon.ico";
 import Game from "./game.js";
-import { EVENTS } from "./gameConstants.js";
+import { EVENTS, STATES } from "./gameConstants.js";
 import { enemies, heroes } from "./heroes.js";
 import {
   activateNavBtn,
@@ -14,6 +14,7 @@ import {
   fillForm,
   openModal,
   closeModal,
+  updateLifeBar,
 } from "./gameView.js";
 
 import { render, saveFormData, validateForm } from "./gameControllers.js";
@@ -45,6 +46,13 @@ import {
   changeNameBtn,
   page,
   chooseEnemyBtn,
+  heroNameBattle,
+  enemyNameBattle,
+  continueBtn,
+  cancel,
+  warning,
+  heroLifeBar,
+  heroLifeValue,
 } from "./domElements.js";
 import { initGameUI } from "./gameControllers.js";
 
@@ -61,10 +69,12 @@ document.querySelector("main").addEventListener("mouseenter", () => {
 
 // listeners
 navProfile.addEventListener("click", (e) => {
-  if (!game.name) {
+  if (!game.hero.name) {
     openModal(auth);
     authForm.username.focus();
     auth.dataset.btnid = e.target.getAttribute("id");
+  } else if (game.state === STATES.READY || game.state === STATES.FIGHT) {
+    openModal(warning);
   } else {
     switchOverBlocks(profileBlock);
     activateNavBtn(e.target);
@@ -72,15 +82,21 @@ navProfile.addEventListener("click", (e) => {
 });
 
 navHome.addEventListener("click", (e) => {
-  switchOverBlocks(startBlock);
-  activateNavBtn(e.target);
+  if (game.state === STATES.READY || game.state === STATES.FIGHT) {
+    openModal(warning);
+  } else {
+    switchOverBlocks(startBlock);
+    activateNavBtn(e.target);
+  }
 });
 
 navSettings.addEventListener("click", (e) => {
-  if (!game.name) {
+  if (!game.hero.name) {
     openModal(auth);
     authForm.username.focus();
     auth.dataset.btnid = e.target.getAttribute("id");
+  } else if (game.state === STATES.READY || game.state === STATES.FIGHT) {
+    openModal(warning);
   } else {
     switchOverBlocks(chooseHeroBlock, chooseEnemyBlock);
     activateNavBtn(e.target);
@@ -93,7 +109,7 @@ changeBtn.addEventListener("click", (e) => {
 });
 
 startBtn.addEventListener("click", (e) => {
-  if (!game.name) {
+  if (!game.hero.name) {
     openModal(auth);
     authForm.username.focus();
     auth.dataset.btnid = e.target.getAttribute("id");
@@ -129,6 +145,7 @@ enemiesList.addEventListener("click", (e) => {
   const card = e.target.closest(".card");
   if (card) {
     game.enemy.data = enemies[card.id];
+    enemyNameBattle.textContent = game.enemy.data.name;
     setActiveCharacter(enemiesList, game.enemy.data.id);
     updateBattleBlock(enemyImgBattle, enemyLifeBattle, game.enemy.data);
     fillForm(form, game.hero.data, game.enemy.data);
@@ -143,8 +160,9 @@ changeNameBtn.addEventListener("click", () => {
 
 authForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  game.name = e.target.authName.value;
-  profileName.textContent = game.name;
+  game.hero.name = e.target.authName.value;
+  profileName.textContent = game.hero.name;
+  heroNameBattle.textContent = game.hero.name;
   closeModal(auth);
   if (auth.dataset.btnid === "start") {
     chooseEnemyBlock.classList.add("wide");
@@ -205,6 +223,25 @@ modals.forEach((modal) => {
       closeModal(modal);
     }
   });
+});
+
+continueBtn.addEventListener("click", (e) => {
+  const modal = e.target.closest(".modal");
+  if (modal) {
+    authForm.username.value = "";
+    closeModal(modal);
+  }
+});
+
+cancel.addEventListener("click", (e) => {
+  game.hero.currentLife = 0;
+  updateLifeBar(heroLifeBar, 0, game.hero.data.life);
+  heroLifeValue.textContent = 0;
+  const modal = e.target.closest(".modal");
+  closeModal(modal);
+
+  game.transition(EVENTS.RESULT_DEAD);
+  render(game);
 });
 
 chooseEnemyBtn.addEventListener("click", (e) => {

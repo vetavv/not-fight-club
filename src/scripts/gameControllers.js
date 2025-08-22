@@ -32,6 +32,9 @@ import {
   heroLifeValue,
   winModal,
   loseModal,
+  enemyNameBattle,
+  heroLog,
+  enemyLog,
 } from "./domElements.js";
 
 export function render(game) {
@@ -44,6 +47,8 @@ export function render(game) {
       enemyLifeBattle.textContent = game.enemy.data.life;
       enemyLifeValue.textContent = game.enemy.currentLife;
       heroLifeValue.textContent = game.hero.currentLife;
+      heroLog.textContent = "";
+      enemyLog.textContent = "";
       switchOverBlocks(startBlock);
       break;
 
@@ -101,6 +106,7 @@ export function initGameUI(game) {
   currentLife.textContent = game.hero.currentLife;
   const currentLifeEnemy = document.querySelector("#battleEnemyCurrentLife");
   currentLifeEnemy.textContent = game.enemy.currentLife;
+  enemyNameBattle.textContent = game.enemy.data.name;
 }
 
 export function saveFormData(form, game) {

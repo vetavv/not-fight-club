@@ -7,6 +7,9 @@ export const loseModal = document.querySelector("#lose");
 export const loseModalBtn = loseModal.querySelector(".btn");
 export const modalCloseBtns = document.querySelectorAll(".modal .modal__close");
 export const modals = document.querySelectorAll(".modal");
+export const warning = document.querySelector("#warning");
+export const cancel = document.querySelector("#cancelBtn");
+export const continueBtn = document.querySelector("#continueBtn");
 
 export const startBlock = document.querySelector("#home");
 export const figthBlock = document.querySelector("#battle");
@@ -48,6 +51,12 @@ export const form = document.querySelector("#form");
 export const formBtn = document.querySelector("#formSubmit");
 export const defenseZones = document.querySelector("#defenseZones");
 export const attackZones = document.querySelector("#attackZones");
+
+export const heroNameBattle = document.querySelector("#heroNameBattle");
+export const enemyNameBattle = document.querySelector("#enemyNameBattle");
+
+export const heroLog = document.querySelector("#heroLog");
+export const enemyLog = document.querySelector("#enemyLog");
 
 // profile block
 export const heroImgProfile = document.querySelector("#profileImg");

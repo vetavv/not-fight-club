@@ -85,6 +85,7 @@
                 <section class="battle" id="battle">
                     <div class="block arena">
                         <div class="hero">
+                            <p class="title" id="heroNameBattle">Name</p>
                             <div class="character">
                                 <div class="character__img idle" id="battleHeroImg"></div>
                             </div>
@@ -119,6 +120,7 @@
                         </div>
 
                         <div class="hero hero_reverse">
+                            <p class="title" id="enemyNameBattle">Name</p>
                             <div class="character">
                                 <div class="character__img idle" id="battleEnemyImg"></div>
                             </div>
@@ -131,8 +133,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="block log"></div>
-                    <div class="block log"></div>
+                    <div class="block log" id="enemyLog">
+                    </div>
+                    <div class="block log" id="heroLog"></div>
                 </section>
 
                 <section class="block choose" id="chooseHero">
@@ -176,6 +179,19 @@
                 <button class="modal__close"><span class="visually-hidden">Close modal window.</span></button>
                 <p class="modal__title">You lose!</p>
                 <button class="btn btn_dark">Profile ></button>
+            </div>
+        </div>
+
+        <div class="modal" id="warning">
+            <div class="modal-content">
+                <button class="modal__close"><span class="visually-hidden">Close modal window.</span></button>
+                <p class="modal__title modal__title_warn">If you leave now, you will lose this round and the game will
+                    end.</p>
+                <div class="btns-container">
+                    <button class="btn" id="cancelBtn">leave</button>
+                    <button class="btn btn_dark" id="continueBtn">Continue playing</button>
+                </div>
+
             </div>
         </div>
 </body>
