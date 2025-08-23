@@ -35,6 +35,8 @@ import {
   enemyNameBattle,
   heroLog,
   enemyLog,
+  defenseInfo,
+  attackInfo,
 } from "./domElements.js";
 
 export function render(game) {
@@ -49,6 +51,12 @@ export function render(game) {
       heroLifeValue.textContent = game.hero.currentLife;
       heroLog.textContent = "";
       enemyLog.textContent = "";
+      defenseInfo.textContent = `Please choose ${
+        game.hero.data.defenseZonesCount
+      } zone${game.hero.data.defenseZonesCount > 1 ? "s" : ""}`;
+      attackInfo.textContent = `Please choose ${
+        game.hero.data.attackZonesCount
+      } zone${game.hero.data.attackZonesCount > 1 ? "s" : ""}`;
       switchOverBlocks(startBlock);
       break;
 
@@ -107,6 +115,7 @@ export function initGameUI(game) {
   const currentLifeEnemy = document.querySelector("#battleEnemyCurrentLife");
   currentLifeEnemy.textContent = game.enemy.currentLife;
   enemyNameBattle.textContent = game.enemy.data.name;
+  validateForm(form, game.hero.data);
 }
 
 export function saveFormData(form, game) {

@@ -53,6 +53,9 @@ import {
   warning,
   heroLifeBar,
   heroLifeValue,
+  attackInfo,
+  defenseInfo,
+  authErr,
 } from "./domElements.js";
 import { initGameUI } from "./gameControllers.js";
 
@@ -138,6 +141,12 @@ heroesList.addEventListener("click", (e) => {
     updateProfile(game.hero.data);
     updateBattleBlock(heroImgBattle, heroLifeBattle, game.hero.data);
     fillForm(form, game.hero.data, game.enemy.data);
+    defenseInfo.textContent = `Please choose ${
+      game.hero.data.defenseZonesCount
+    } zone${game.hero.data.defenseZonesCount > 1 ? "s" : ""}`;
+    attackInfo.textContent = `Please choose ${
+      game.hero.data.attackZonesCount
+    } zone${game.hero.data.attackZonesCount > 1 ? "s" : ""}`;
   }
 });
 
@@ -181,10 +190,16 @@ authForm.addEventListener("submit", (e) => {
 
 authForm.addEventListener("input", (e) => {
   const value = authForm.username.value;
-  const valid = /^[A-Za-z0-9._-]*$/.test(value);
-  if (!valid) {
+  const valid = /^[A-Za-z0-9._-\s]*$/.test(value);
+  if (!valid && value.length <= 15) {
     authForm.classList.add("error");
-    authForm.username.value = value.replace(/[^A-Za-z0-9._-]/g, "");
+    authErr.textContent =
+      'Please use only English letters, numbers, "-", "." or "_"';
+    authForm.username.value = value.replace(/[^A-Za-z0-9._-\s]/g, "");
+  } else if (value.length > 15) {
+    authForm.classList.add("error");
+    authErr.textContent = "Username must be 15 characters or fewer.";
+    authForm.username.value = value.slice(0, 15);
   } else {
     authForm.classList.remove("error");
   }

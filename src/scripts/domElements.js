@@ -1,6 +1,7 @@
 export const page = document.querySelector(".page");
 export const auth = document.querySelector("#auth");
 export const authForm = document.querySelector("#auth-form");
+export const authErr = document.querySelector("#authErr");
 export const winModal = document.querySelector("#win");
 export const winModalBtn = winModal.querySelector(".btn");
 export const loseModal = document.querySelector("#lose");
@@ -57,6 +58,8 @@ export const enemyNameBattle = document.querySelector("#enemyNameBattle");
 
 export const heroLog = document.querySelector("#heroLog");
 export const enemyLog = document.querySelector("#enemyLog");
+export const defenseInfo = document.querySelector("#defenseInfo");
+export const attackInfo = document.querySelector("#attackInfo");
 
 // profile block
 export const heroImgProfile = document.querySelector("#profileImg");

@@ -103,13 +103,17 @@
                             <form class="form" id="form">
                                 <div class="form__groups">
                                     <fieldset class="form__group">
-                                        <legend class="form__title">Defense zones:</legend>
+                                        <legend class="form__title">Defense zones<span class="info"><span
+                                                    class="info-content" id="defenseInfo">text info about defense
+                                                    zones</span></span>
+                                        </legend>
                                         <div class="form__group-container" id="defenseZones">
                                         </div>
                                     </fieldset>
 
                                     <fieldset class="form__group">
-                                        <legend class="form__title">Attack zones:</legend>
+                                        <legend class="form__title">Attack zones<span class="info"><span
+                                                    class="info-content" id="attackInfo"></span></legend>
                                         <div class="form__group-container" id="attackZones">
                                         </div>
                                     </fieldset>
@@ -160,7 +164,7 @@
                 <form class="auth-form" id="auth-form">
                     <input class="input" type="text" id="authName" name="username" spellcheck="false" autocomplete="off"
                         required>
-                    <p class="authErr">Please use only English letters, numbers, "-", "." or "_"</p>
+                    <p class="authErr" id="authErr">.</p>
                     <button class="btn btn_dark auth-form__btn" type="submit">Save</button>
                 </form>
             </div>

@@ -524,8 +524,10 @@ main {
 }
 
 .form__title {
+  display: flex;
   font-size: 24px;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 input[type="radio"],
@@ -775,4 +777,44 @@ input[type="checkbox"]:checked + span::before {
 
 .modal__title_warn {
   font-size: 35px;
+}
+
+.info {
+  position: relative;
+  display: block;
+  margin-left: 10px;
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-image: url("./../assets/images/decor/info.svg");
+  background-position: center;
+  background-size: auto 9px;
+  background-repeat: no-repeat;
+  transition: all 0.3s ease-out;
+}
+
+.info-content {
+  display: block;
+  font-size: 16px;
+  background-color: #fff;
+  border: 1px solid var(--color-border);
+  position: absolute;
+  z-index: 2;
+  padding: 5px;
+  border-radius: 10px;
+  width: 155px;
+  bottom: calc(100% + 15px);
+  right: 0;
+  text-align: center;
+  transform: scale(0.5);
+  opacity: 0;
+  transition: all 0.2s ease-out;
+}
+
+.form__title:hover .info-content {
+  transform: scale(1);
+  opacity: 1;
+  opacity: 1;
+  transition: all 0.2s ease-in;
 }
