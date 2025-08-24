@@ -9,21 +9,19 @@ class Game {
     this.fails = 0;
 
     this.hero = {
-      data: heroes.turtle,
-      currentLife: 0,
+      info: heroes.turtle,
       currentAttackZones: [],
       currentDefenseZones: [],
     };
 
     this.enemy = {
-      data: enemies.octopus,
-      currentLife: 0,
+      info: enemies.octopus,
       currentAttackZones: [],
       currentDefenseZones: [],
     };
 
-    this.hero.currentLife = this.hero.data.life;
-    this.enemy.currentLife = this.hero.data.life;
+    this.hero.currentLife = this.hero.info.life;
+    this.enemy.currentLife = this.enemy.info.life;
   }
 
   transition(event) {
@@ -48,6 +46,9 @@ class Game {
         }
         break;
       case STATES.FINISH:
+        // if (event === EVENTS.RESULT_CONFIRMED) {
+        //   this.state = STATES.IDLE;
+        // }
         this.state = STATES.IDLE;
         break;
       default:

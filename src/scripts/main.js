@@ -56,6 +56,8 @@ import {
   attackInfo,
   defenseInfo,
   authErr,
+  enemyLifeBar,
+  enemyLifeValue,
 } from "./domElements.js";
 import { initGameUI } from "./gameControllers.js";
 
@@ -79,6 +81,8 @@ navProfile.addEventListener("click", (e) => {
   } else if (game.state === STATES.READY || game.state === STATES.FIGHT) {
     openModal(warning);
   } else {
+    game.state = STATES.IDLE;
+    render(game);
     switchOverBlocks(profileBlock);
     activateNavBtn(e.target);
   }
@@ -88,6 +92,8 @@ navHome.addEventListener("click", (e) => {
   if (game.state === STATES.READY || game.state === STATES.FIGHT) {
     openModal(warning);
   } else {
+    game.state = STATES.IDLE;
+    render(game);
     switchOverBlocks(startBlock);
     activateNavBtn(e.target);
   }
@@ -101,6 +107,8 @@ navSettings.addEventListener("click", (e) => {
   } else if (game.state === STATES.READY || game.state === STATES.FIGHT) {
     openModal(warning);
   } else {
+    game.state = STATES.IDLE;
+    render(game);
     switchOverBlocks(chooseHeroBlock, chooseEnemyBlock);
     activateNavBtn(e.target);
   }
@@ -117,7 +125,9 @@ startBtn.addEventListener("click", (e) => {
     authForm.username.focus();
     auth.dataset.btnid = e.target.getAttribute("id");
   } else {
+    console.log(game.state);
     game.transition(EVENTS.START_CLICKED);
+    console.log(game.state);
     render(game);
   }
 });
@@ -130,34 +140,41 @@ form.addEventListener("submit", (e) => {
 });
 
 form.addEventListener("input", () => {
-  validateForm(form, game.hero.data);
+  validateForm(form, game.hero.info);
 });
 
 heroesList.addEventListener("click", (e) => {
   const card = e.target.closest(".card");
   if (card) {
-    game.hero.data = heroes[card.id];
-    setActiveCharacter(heroesList, game.hero.data.id);
-    updateProfile(game.hero.data);
-    updateBattleBlock(heroImgBattle, heroLifeBattle, game.hero.data);
-    fillForm(form, game.hero.data, game.enemy.data);
+    game.hero.info = heroes[card.id];
+    game.hero.currentLife = game.hero.info.life;
+    heroLifeValue.textContent = game.hero.currentLife;
+    setActiveCharacter(heroesList, game.hero.info.id);
+    updateProfile(game.hero.info);
+    updateBattleBlock(heroImgBattle, heroLifeBattle, game.hero.info);
+    fillForm(form, game.hero.info, game.enemy.info);
+
+    // heroLifeValue.textContent = game.hero.currentLife;
+
     defenseInfo.textContent = `Please choose ${
-      game.hero.data.defenseZonesCount
-    } zone${game.hero.data.defenseZonesCount > 1 ? "s" : ""}`;
+      game.hero.info.defenseZonesCount
+    } zone${game.hero.info.defenseZonesCount > 1 ? "s" : ""}`;
     attackInfo.textContent = `Please choose ${
-      game.hero.data.attackZonesCount
-    } zone${game.hero.data.attackZonesCount > 1 ? "s" : ""}`;
+      game.hero.info.attackZonesCount
+    } zone${game.hero.info.attackZonesCount > 1 ? "s" : ""}`;
   }
 });
 
 enemiesList.addEventListener("click", (e) => {
   const card = e.target.closest(".card");
   if (card) {
-    game.enemy.data = enemies[card.id];
-    enemyNameBattle.textContent = game.enemy.data.name;
-    setActiveCharacter(enemiesList, game.enemy.data.id);
-    updateBattleBlock(enemyImgBattle, enemyLifeBattle, game.enemy.data);
-    fillForm(form, game.hero.data, game.enemy.data);
+    game.enemy.info = enemies[card.id];
+    game.enemy.currentLife = game.enemy.info.life;
+    enemyLifeValue.textContent = game.enemy.currentLife;
+    enemyNameBattle.textContent = game.enemy.info.name;
+    setActiveCharacter(enemiesList, game.enemy.info.id);
+    updateBattleBlock(enemyImgBattle, enemyLifeBattle, game.enemy.info);
+    fillForm(form, game.hero.info, game.enemy.info);
   }
 });
 
@@ -208,16 +225,16 @@ authForm.addEventListener("input", (e) => {
 
 winModalBtn.addEventListener("click", (e) => {
   const modal = e.target.closest(".modal");
-  game.transition(EVENTS.RESULT_CONFIRMED);
-  render(game);
+  // game.transition(EVENTS.RESULT_CONFIRMED);
+  // render(game);
   switchOverBlocks(profileBlock);
   closeModal(modal);
 });
 
 loseModalBtn.addEventListener("click", (e) => {
   const modal = e.target.closest(".modal");
-  game.transition(EVENTS.RESULT_CONFIRMED);
-  render(game);
+  // game.transition(EVENTS.RESULT_CONFIRMED);
+  // render(game);
   switchOverBlocks(profileBlock);
   closeModal(modal);
 });
@@ -250,7 +267,7 @@ continueBtn.addEventListener("click", (e) => {
 
 cancel.addEventListener("click", (e) => {
   game.hero.currentLife = 0;
-  updateLifeBar(heroLifeBar, 0, game.hero.data.life);
+  updateLifeBar(heroLifeBar, 0, game.hero.info.life);
   heroLifeValue.textContent = 0;
   const modal = e.target.closest(".modal");
   closeModal(modal);

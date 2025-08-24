@@ -9,6 +9,7 @@ import {
   defenseZones,
   attackZones,
   page,
+  heroLifeValue,
 } from "./domElements.js";
 
 export function activateNavBtn(btn) {
@@ -70,8 +71,8 @@ export function createCard(character) {
     ["Life", character.life],
     ["Attack power", character.attackZonesCount],
     ["Defense power", character.defenseZonesCount],
-    ["Damage power", character.defenseZonesCount],
-    ["Crusial", character.defenseZonesCount],
+    ["Damage power", character.damagePower],
+    ["Critical strike", character.critical],
   ];
 
   fields.forEach(([key, value]) => {

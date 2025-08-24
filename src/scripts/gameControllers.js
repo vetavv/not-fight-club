@@ -40,24 +40,24 @@ import {
 } from "./domElements.js";
 
 export function render(game) {
+  console.log(game);
   switch (game.state) {
     case STATES.IDLE:
-      fillForm(form, game.hero.data, game.enemy.data);
-      updateLifeBar(heroLifeBar, game.hero.currentLife, game.hero.data.life);
-      updateLifeBar(enemyLifeBar, game.enemy.currentLife, game.enemy.data.life);
-      heroLifeBattle.textContent = game.hero.data.life;
-      enemyLifeBattle.textContent = game.enemy.data.life;
+      fillForm(form, game.hero.info, game.enemy.info);
+      updateLifeBar(heroLifeBar, game.hero.currentLife, game.hero.info.life);
+      updateLifeBar(enemyLifeBar, game.enemy.currentLife, game.enemy.info.life);
+      heroLifeBattle.textContent = game.hero.info.life;
+      enemyLifeBattle.textContent = game.enemy.info.life;
       enemyLifeValue.textContent = game.enemy.currentLife;
       heroLifeValue.textContent = game.hero.currentLife;
       heroLog.textContent = "";
       enemyLog.textContent = "";
       defenseInfo.textContent = `Please choose ${
-        game.hero.data.defenseZonesCount
-      } zone${game.hero.data.defenseZonesCount > 1 ? "s" : ""}`;
+        game.hero.info.defenseZonesCount
+      } zone${game.hero.info.defenseZonesCount > 1 ? "s" : ""}`;
       attackInfo.textContent = `Please choose ${
-        game.hero.data.attackZonesCount
-      } zone${game.hero.data.attackZonesCount > 1 ? "s" : ""}`;
-      switchOverBlocks(startBlock);
+        game.hero.info.attackZonesCount
+      } zone${game.hero.info.attackZonesCount > 1 ? "s" : ""}`;
       break;
 
     case STATES.READY:
@@ -91,6 +91,7 @@ export function render(game) {
       document.querySelector("#statFails").textContent = game.fails;
       resetRound(game);
       // game.transition(EVENTS.RESULT_CONFIRMED);
+      // console.log(game.state);
       // render(game);
       break;
     default:
@@ -102,20 +103,19 @@ export function initGameUI(game) {
   fillList(heroesList, heroes);
   fillList(enemiesList, enemies);
 
-  setActiveCharacter(heroesList, game.hero.data.id);
-  setActiveCharacter(enemiesList, game.enemy.data.id);
+  setActiveCharacter(heroesList, game.hero.info.id);
+  setActiveCharacter(enemiesList, game.enemy.info.id);
 
-  updateProfile(game.hero.data);
+  updateProfile(game.hero.info);
 
-  updateBattleBlock(heroImgBattle, heroLifeBattle, game.hero.data);
-  updateBattleBlock(enemyImgBattle, enemyLifeBattle, game.enemy.data);
+  updateBattleBlock(heroImgBattle, heroLifeBattle, game.hero.info);
+  updateBattleBlock(enemyImgBattle, enemyLifeBattle, game.enemy.info);
 
-  const currentLife = document.querySelector("#battleHeroCurrentLife");
-  currentLife.textContent = game.hero.currentLife;
-  const currentLifeEnemy = document.querySelector("#battleEnemyCurrentLife");
-  currentLifeEnemy.textContent = game.enemy.currentLife;
-  enemyNameBattle.textContent = game.enemy.data.name;
-  validateForm(form, game.hero.data);
+  heroLifeValue.textContent = game.hero.currentLife;
+  enemyLifeValue.textContent = game.enemy.currentLife;
+  enemyNameBattle.textContent = game.enemy.info.name;
+  validateForm(form, game.hero.info);
+  switchOverBlocks(startBlock);
 }
 
 export function saveFormData(form, game) {
@@ -135,6 +135,6 @@ export function validateForm(form, hero) {
 export function resetRound(game) {
   game.currentAttackZones = [];
   game.currentDefenseZones = [];
-  game.hero.currentLife = game.hero.data.life;
-  game.enemy.currentLife = game.enemy.data.life;
+  game.hero.currentLife = game.hero.info.life;
+  game.enemy.currentLife = game.enemy.info.life;
 }
