@@ -4,19 +4,7 @@ import { EVENTS, NAV_MAP } from "./gameConstants.js";
 import { enemies, heroes } from "./heroes.js";
 import * as view from "./gameView.js";
 import * as dom from "./domElements.js";
-import {
-  render,
-  saveFormData,
-  validateForm,
-  handleNavClick,
-  handleResultModalBtn,
-  validateUsernameInput,
-  updateDomName,
-  activateAuthorization,
-  updateDomEnemyInfo,
-  updateDomHeroInfo,
-} from "./gameControllers.js";
-import * as controllers from "./gameControllers.js";
+import * as controller from "./gameControllers.js";
 
 export default (game) => {
   // for chrome bag with custom cursor
@@ -26,31 +14,33 @@ export default (game) => {
 
   dom.navProfile.addEventListener("click", (e) => {
     if (game.isAuthorized) {
-      handleNavClick(e.target, game);
+      controller.handleNavClick(e.target, game);
     } else {
-      activateAuthorization(e.target);
+      controller.activateAuthorization(e.target);
     }
   });
 
   dom.navHome.addEventListener("click", (e) => {
-    handleNavClick(e.target, game);
+    console.log("here");
+    controller.handleNavClick(e.target, game);
   });
 
   dom.navSettings.addEventListener("click", (e) => {
     if (game.isAuthorized) {
-      handleNavClick(e.target, game);
+      controller.handleNavClick(e.target, game);
     } else {
-      activateAuthorization(e.target);
+      controller.activateAuthorization(e.target);
     }
   });
 
   dom.startBtn.addEventListener("click", (e) => {
     if (game.isAuthorized) {
       game.transition(EVENTS.START_CLICKED);
-      render(game);
+      controller.render(game);
     } else {
-      activateAuthorization(e.target);
+      controller.activateAuthorization(e.target);
     }
+    view.resetNavBtns();
   });
 
   dom.changeBtn.addEventListener("click", (e) => {
@@ -68,13 +58,13 @@ export default (game) => {
 
   dom.form.addEventListener("submit", (e) => {
     e.preventDefault();
-    saveFormData(form, game);
+    controller.saveFormData(form, game);
     game.transition(EVENTS.FORM_SUBMIT);
-    render(game);
+    controller.render(game);
   });
 
   dom.form.addEventListener("input", () => {
-    validateForm(form, game.hero.info);
+    controller.validateForm(form, game.hero.info);
   });
 
   dom.heroesList.addEventListener("click", (e) => {
@@ -84,7 +74,7 @@ export default (game) => {
       game.hero.currentLife = game.hero.info.life;
 
       view.setActiveCharacter(dom.heroesList, game.hero.info.id);
-      updateDomHeroInfo(game);
+      controller.updateDomHeroInfo(game);
     }
   });
 
@@ -95,7 +85,7 @@ export default (game) => {
       game.enemy.currentLife = game.enemy.info.life;
 
       view.setActiveCharacter(dom.enemiesList, game.enemy.info.id);
-      updateDomEnemyInfo(game);
+      controller.updateDomEnemyInfo(game);
     }
   });
 
@@ -108,7 +98,7 @@ export default (game) => {
     const nextPage = modal.dataset.navTo;
 
     game.hero.name = input.value;
-    updateDomName(game.hero.name);
+    controller.updateDomName(game.hero.name);
 
     view.closeModal(modal);
     input.value = "";
@@ -117,8 +107,8 @@ export default (game) => {
 
     if (nextPage) {
       if (nextPage === "battle") {
-        game.transition(EVENTS.START_CLICKED);
-        render(game);
+        view.switchOverBlocks(NAV_MAP["settings"]);
+        dom.chooseEnemyBtn.classList.add("show");
       } else {
         const blocks = NAV_MAP[nextPage];
         view.switchOverBlocks(blocks);
@@ -127,15 +117,25 @@ export default (game) => {
   });
 
   dom.authForm.addEventListener("input", (e) => {
-    validateUsernameInput(dom.authForm.username, dom.authErr, dom.authForm);
+    controller.validateUsernameInput(
+      dom.authForm.username,
+      dom.authErr,
+      dom.authForm
+    );
+  });
+
+  dom.chooseEnemyBtn.addEventListener("click", (e) => {
+    game.transition(EVENTS.START_CLICKED);
+    controller.render(game);
+    dom.chooseEnemyBtn.classList.remove("show");
   });
 
   dom.winModalBtn.addEventListener("click", (e) => {
-    handleResultModalBtn(e, game);
+    controller.handleResultModalBtn(e, game);
   });
 
   dom.loseModalBtn.addEventListener("click", (e) => {
-    handleResultModalBtn(e, game);
+    controller.handleResultModalBtn(e, game);
   });
 
   dom.modalCloseBtns.forEach((btn) => {
@@ -166,6 +166,6 @@ export default (game) => {
     game.hero.currentLife = 0;
 
     game.transition(EVENTS.RESULT_DEAD);
-    render(game);
+    controller.render(game);
   });
 };

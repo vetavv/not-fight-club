@@ -366,22 +366,19 @@ main {
 
 .choose {
   padding-inline: 40px;
-}
-
-.choose.enemy .btn {
-  display: none;
-}
-
-.choose.wide {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.choose.wide .btn {
-  display: flex;
+.choose.enemy .btn {
+  display: none;
   align-self: flex-end;
   margin-top: auto;
+}
+
+.choose.enemy .btn.show {
+  display: flex;
 }
 
 .choose.wide ul {

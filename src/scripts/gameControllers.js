@@ -119,6 +119,7 @@ export function handleResultModalBtn(e, game) {
 
   view.closeModal(modal);
   view.switchOverBlocks(blocks);
+  view.activateNavBtn(dom.navProfile);
 
   game.transition(EVENTS.EXIT_BATTLE);
   render(game);

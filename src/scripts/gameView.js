@@ -1,6 +1,7 @@
 import * as dom from "./domElements.js";
 
 export function activateNavBtn(btn) {
+  resetNavBtns();
   btn.classList.add("current");
   btn.setAttribute("disabled", "disabled");
 }
@@ -17,7 +18,6 @@ export function resetNavBtns() {
 }
 
 export function switchOverBlocks(currentBlocks) {
-  resetNavBtns();
   hideBlocks(dom.blocks);
   showBlocks(currentBlocks);
 }
