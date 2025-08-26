@@ -1,19 +1,14 @@
 import { createUniqueRandomGenerator } from "./utils.js";
+import { heroLog, enemyLog } from "./domElements.js";
 
-import {
-  enemyCurrentValue,
-  heroCurrentValue,
+export function isFormValid(
+  attackCount,
+  defenseCount,
   attackZones,
-  defenseZones,
-} from "./domElements.js";
-
-export function isFormValid(form, hero) {
-  const attackCount = hero.attackZonesCount;
-  const defenseCount = hero.defenseZonesCount;
-
+  defenseZones
+) {
   let checkedAttacks = calcCheckedInputs(attackZones, attackCount);
   let checkedDefenses = calcCheckedInputs(defenseZones, defenseCount);
-
   return checkedAttacks === attackCount && checkedDefenses === defenseCount;
 }
 
@@ -48,8 +43,6 @@ export function resetEnemyMove(game) {
   game.enemy.currentAttackZones = [];
   game.enemy.currentDefenseZones = [];
 }
-
-import { heroLog, enemyLog } from "./domElements.js";
 
 export function calcLifes(game) {
   const enemyDamage = calcDamage(
@@ -93,11 +86,6 @@ function calcDamage(player1, player2, attackZones, defenseZones, block) {
 }
 
 function logSuccess(player1, player2, zone, block) {
-  // console.log(
-  //   `${player1.name} beat ${zone} and got it`,
-  //   `${player2.name} -${player1.damagePower}`
-  // );
-
   const li = document.createElement("li");
   li.classList.add("log__item");
   const name1 = document.createElement("span");
@@ -124,13 +112,9 @@ function logSuccess(player1, player2, zone, block) {
     damage
   );
   block.append(li);
-  // heroLog.textContent = `${player1.name} attack ${zone} and got it
-  // ${player2.name} -${player1.damagePower}`;
 }
 
 function logFail(player1, player2, zone, block) {
-  // console.log(`${player.name} beat ${zone} and not got it`);
-
   const li = document.createElement("li");
   li.classList.add("log__item");
   const name1 = document.createElement("span");

@@ -80,7 +80,15 @@ export function saveFormData(form, game) {
 
 export function validateForm(form, hero) {
   const btn = form.querySelector("button[type=submit]");
-  btn.toggleAttribute("disabled", !isFormValid(form, hero));
+  btn.toggleAttribute(
+    "disabled",
+    !isFormValid(
+      hero.attackZonesCount,
+      hero.defenseZonesCount,
+      dom.attackZones,
+      dom.defenseZones
+    )
+  );
 }
 
 export function resetRound(game) {
