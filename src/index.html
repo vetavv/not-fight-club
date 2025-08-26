@@ -12,14 +12,14 @@
 
         <div class="container">
             <header class="header">
-                <button class="logo" id="homeNav">Not fight club</button>
+                <button class="logo" id="homeNav" data-nav-to="home">Not fight club</button>
                 <nav class="nav">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <button class="btn" id="profileNav">Profile</button>
+                            <button class="btn" id="profileNav" data-nav-to="profile">Profile</button>
                         </li>
                         <li class="nav__item">
-                            <button class="btn" id="settingsNav">Settings</button>
+                            <button class="btn" id="settingsNav" data-nav-to="settings">Settings</button>
                         </li>
                     </ul>
                 </nav>
@@ -30,7 +30,7 @@
 
                 <section class="home" id="home">
                     <h2 class="visually-hidden">Home of the game.</h2>
-                    <button class="main-btn" id="start">New fight</button>
+                    <button class="main-btn" id="start" data-nav-to="battle">New fight</button>
                 </section>
 
                 <section class="block profile" id="profile">
@@ -38,32 +38,33 @@
                     <div class="subsection">
                         <h3 class="title">Info</h3>
                         <div class="character">
-                            <div class="character__img idle" id="profileImg"></div>
+                            <div class="character__img idle" id="profileImg" data-bind="heroImage"></div>
                         </div>
                     </div>
                     <div class="subsection subsection_big">
-                        <p class="profile__name" id="profileName">Unknown gamer</p>
+                        <p class="profile__name" id="profileName" data-bind="name"></p>
                         <button class="profile_change-name" id="changeName"><span class="visually-hidden">Change
                                 name</span></button>
                         <dl class="list">
                             <div class="list__item">
                                 <dt class="list__key">Hero</dt>
-                                <dd class="list__value" id="profileHero"></dd>
+                                <dd class="list__value" id="profileHero" data-bind="heroName"></dd>
                             </div>
                             <div class="list__item">
                                 <dt class="list__key">Life</dt>
-                                <dd class="list__value" id="profileLife"></dd>
+                                <dd class="list__value" id="profileLife" data-bind="heroLife"></dd>
                             </div>
                             <div class="list__item">
                                 <dt class="list__key">Attack power</dt>
-                                <dd class="list__value" id="profileAttackCount"></dd>
+                                <dd class="list__value" id="profileAttackCount" data-bind="heroAttackPower"></dd>
                             </div>
                             <div class="list__item">
                                 <dt class="list__key">Defense power</dt>
-                                <dd class="list__value" id="profileDefenseCount"></dd>
+                                <dd class="list__value" id="profileDefenseCount" data-bind="heroDefensePower"></dd>
                             </div>
                         </dl>
-                        <button class="btn btn_dark profile__btn" id="chooseHeroProfile">Change hero
+                        <button class="btn btn_dark profile__btn" id="chooseHeroProfile"
+                            data-nav-to="profileChange">Change hero
                         </button>
                     </div>
 
@@ -85,16 +86,17 @@
                 <section class="battle" id="battle">
                     <div class="block arena">
                         <div class="hero">
-                            <p class="title" id="heroNameBattle">Name</p>
+                            <p class="title" id="heroNameBattle" data-bind="name"></p>
                             <div class="character">
-                                <div class="character__img idle" id="battleHeroImg"></div>
+                                <div class="character__img idle" id="battleHeroImg" data-bind="heroImage"></div>
                             </div>
                             <div class="life">
                                 <div class="life__container">
                                     <div class="life__range" id="heroLifeBar"></div>
                                 </div>
                                 <p class="life__value">
-                                    <span id="battleHeroCurrentLife"></span>/<span id="battleHeroLife"></span>
+                                    <span id="battleHeroCurrentLife"></span>/<span id="battleHeroLife"
+                                        data-bind="heroLife"></span>
                                 </p>
                             </div>
                         </div>
@@ -124,16 +126,17 @@
                         </div>
 
                         <div class="hero hero_reverse">
-                            <p class="title" id="enemyNameBattle">Name</p>
+                            <p class="title" id="enemyNameBattle" data-bind="enemyName">Name</p>
                             <div class="character">
-                                <div class="character__img idle" id="battleEnemyImg"></div>
+                                <div class="character__img idle" id="battleEnemyImg" data-bind="enemyImage"></div>
                             </div>
                             <div class="life">
                                 <div class="life__container">
                                     <div class="life__range" id="enemyLifeBar"></div>
                                 </div>
                                 <p class="life__value"><span class="life__current-value_enemy"
-                                        id="battleEnemyCurrentLife"></span>/<span id="battleEnemyLife"></span></p>
+                                        id="battleEnemyCurrentLife"></span>/<span id="battleEnemyLife"
+                                        data-bind="enemyLife"></span></p>
                             </div>
                         </div>
                     </div>

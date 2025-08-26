@@ -22,38 +22,50 @@ class Game {
 
     this.hero.currentLife = this.hero.info.life;
     this.enemy.currentLife = this.enemy.info.life;
+
+    this.isAuthorized = false;
   }
 
   transition(event) {
+    console.log(this.state, event);
     switch (this.state) {
       case STATES.IDLE:
         if (event === EVENTS.START_CLICKED) {
+          // if (this.hero.name) {
+          this.state = STATES.READY;
+          // } else {
+          //   this.state = STATES.AUTHORIZATION;
+          // }
+        }
+        break;
+      case STATES.AUTHORIZATION:
+        if (event === EVENTS.AUTHORIZATION_CONFIRMED) {
           this.state = STATES.READY;
         }
         break;
       case STATES.READY:
         if (event === EVENTS.FORM_SUBMIT) {
           this.state = STATES.FIGHT;
-        } else if (event === EVENTS.RESULT_DEAD) {
+        } else if (event === EVENTS.RESULT_DEAD || event === EVENTS.STOP_GAME) {
           this.state = STATES.FINISH;
         }
         break;
       case STATES.FIGHT:
         if (event === EVENTS.RESULT_ALIVE) {
           this.state = STATES.READY;
-        } else if (event === EVENTS.RESULT_DEAD) {
+        } else if (event === EVENTS.RESULT_DEAD || event === EVENTS.STOP_GAME) {
           this.state = STATES.FINISH;
         }
         break;
       case STATES.FINISH:
-        // if (event === EVENTS.RESULT_CONFIRMED) {
-        //   this.state = STATES.IDLE;
-        // }
-        this.state = STATES.IDLE;
+        if (event === EVENTS.EXIT_BATTLE) {
+          this.state = STATES.IDLE;
+        }
         break;
       default:
         break;
     }
+    console.log(this.state);
   }
 }
 

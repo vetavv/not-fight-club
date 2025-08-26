@@ -9,7 +9,7 @@ import {
   defenseZones,
   attackZones,
   page,
-  heroLifeValue,
+  heroCurrentValue,
 } from "./domElements.js";
 
 export function activateNavBtn(btn) {
@@ -55,7 +55,7 @@ export function createCard(character) {
     "card__img-container"
   );
   const divImg = createElement("div", "character__img", "card__img", "idle");
-  divImg.style.backgroundImage = `url('./../assets/images/heroes/${character.dirname}/Idle.png')`;
+  divImg.style.backgroundImage = `url('./assets/images/heroes/${character.dirname}/Idle.png')`;
 
   divImgContainer.append(divImg);
   li.append(divImgContainer);
@@ -113,7 +113,7 @@ export function updateBattleBlock(img, life, character) {
 }
 
 export function updateCharacterImg(img, newDir, characterState) {
-  img.style.backgroundImage = `url('./../assets/images/heroes/${newDir}/${
+  img.style.backgroundImage = `url('./assets/images/heroes/${newDir}/${
     characterState ?? "Idle"
   }.png')`;
 }
@@ -129,6 +129,7 @@ export function updateProfile(hero) {
 export function setActiveCharacter(list, id) {
   const cards = list.querySelectorAll(".card");
   cards.forEach((card) => {
+    console.log(card.id, id);
     if (card.id === id) {
       card.classList.add("active");
     } else {

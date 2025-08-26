@@ -41,12 +41,16 @@ export const chooseEnemyBtn = document.querySelector("#chooseEnemyBtn");
 export const heroImgBattle = document.querySelector("#battleHeroImg");
 export const heroLifeBattle = document.querySelector("#battleHeroLife");
 export const heroLifeBar = document.querySelector("#heroLifeBar");
-export const heroLifeValue = document.querySelector("#battleHeroCurrentLife");
+export const heroCurrentValue = document.querySelector(
+  "#battleHeroCurrentLife"
+);
 
 export const enemyImgBattle = document.querySelector("#battleEnemyImg");
 export const enemyLifeBattle = document.querySelector("#battleEnemyLife");
 export const enemyLifeBar = document.querySelector("#enemyLifeBar");
-export const enemyLifeValue = document.querySelector("#battleEnemyCurrentLife");
+export const enemyCurrentValue = document.querySelector(
+  "#battleEnemyCurrentLife"
+);
 
 export const form = document.querySelector("#form");
 export const formBtn = document.querySelector("#formSubmit");
@@ -72,3 +76,34 @@ export const profileDefenseCount = document.querySelector(
 );
 export const changeBtn = document.querySelector("#chooseHeroProfile");
 export const changeNameBtn = document.querySelector("#changeName");
+
+export const names = document.querySelectorAll('[data-bind="name"]');
+
+export const heroNames = document.querySelectorAll('[data-bind="heroName"]');
+export const heroLifes = document.querySelectorAll('[data-bind="heroLife"]');
+export const heroAttackPowers = document.querySelectorAll(
+  '[data-bind="heroAttackPower"]'
+);
+export const heroDefensePowers = document.querySelectorAll(
+  '[data-bind="heroDefensePower"]'
+);
+export const heroDamagePowers = document.querySelectorAll(
+  '[data-bind="heroDamagePowers"]'
+);
+
+export const heroImages = document.querySelectorAll('[data-bind="heroImage"]');
+
+export const enemyNames = document.querySelectorAll('[data-bind="enemyName"]');
+export const enemyLifes = document.querySelectorAll('[data-bind="enemyLife"]');
+export const enemyAttackPowers = document.querySelectorAll(
+  '[data-bind="enemyAttackPower"]'
+);
+export const enemyDefensePowers = document.querySelectorAll(
+  '[data-bind="enemyDefensePower"]'
+);
+export const enemyDamagePowers = document.querySelectorAll(
+  '[data-bind="enemyDamagePowers"]'
+);
+export const enemyImages = document.querySelectorAll(
+  '[data-bind="enemyImage"]'
+);

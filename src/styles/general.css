@@ -170,6 +170,12 @@ main {
   opacity: 0.5;
 }
 
+.btn_dark.current:disabled {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  opacity: 1;
+}
+
 .main-btn {
   display: inline-block;
   font-size: 40px;
