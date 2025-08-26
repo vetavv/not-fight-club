@@ -1,16 +1,4 @@
-import {
-  navBtns,
-  blocks,
-  heroImgProfile,
-  heroName,
-  profileLife,
-  profileAttackCount,
-  profileDefenseCount,
-  defenseZones,
-  attackZones,
-  page,
-  heroCurrentValue,
-} from "./domElements.js";
+import * as dom from "./domElements.js";
 
 export function activateNavBtn(btn) {
   btn.classList.add("current");
@@ -23,14 +11,14 @@ export function deactivateNavBtn(btn) {
 }
 
 export function resetNavBtns() {
-  navBtns.forEach((btn) => {
+  dom.navBtns.forEach((btn) => {
     deactivateNavBtn(btn);
   });
 }
 
 export function switchOverBlocks(...currentBlocks) {
   resetNavBtns();
-  hideBlocks(blocks);
+  hideBlocks(dom.blocks);
   showBlocks(currentBlocks);
 }
 
@@ -107,29 +95,9 @@ export function updateLifeBar(bar, value, life) {
   bar.style.right = `${100 - percent}%`;
 }
 
-export function updateBattleBlock(img, life, character) {
-  updateCharacterImg(img, character.dirname);
-  life.textContent = character.life;
-}
-
-export function updateCharacterImg(img, newDir, characterState) {
-  img.style.backgroundImage = `url('./assets/images/heroes/${newDir}/${
-    characterState ?? "Idle"
-  }.png')`;
-}
-
-export function updateProfile(hero) {
-  updateCharacterImg(heroImgProfile, hero.dirname);
-  heroName.textContent = hero.name;
-  profileLife.textContent = hero.life;
-  profileAttackCount.textContent = hero.attackZonesCount;
-  profileDefenseCount.textContent = hero.defenseZonesCount;
-}
-
 export function setActiveCharacter(list, id) {
   const cards = list.querySelectorAll(".card");
   cards.forEach((card) => {
-    console.log(card.id, id);
     if (card.id === id) {
       card.classList.add("active");
     } else {
@@ -138,21 +106,21 @@ export function setActiveCharacter(list, id) {
   });
 }
 
-export function fillForm(form, hero, enemy) {
+export function fillForm(hero, enemy) {
   const attackType = hero.attackZonesCount === 1 ? "radio" : "checkbox";
   const defenseType = hero.defenseZonesCount === 1 ? "radio" : "checkbox";
 
-  attackZones.textContent = "";
-  defenseZones.textContent = "";
+  dom.attackZones.textContent = "";
+  dom.defenseZones.textContent = "";
 
   enemy.zones.forEach((zone) => {
     const input = createInput(zone, "attack", attackType);
-    attackZones.append(input);
+    dom.attackZones.append(input);
   });
 
   hero.zones.forEach((zone) => {
     const input = createInput(zone, "defense", defenseType);
-    defenseZones.append(input);
+    dom.defenseZones.append(input);
   });
 }
 
@@ -173,10 +141,10 @@ function createInput(value, name, type) {
 
 export function openModal(modal) {
   modal.classList.add("open");
-  page.classList.add("modal-open");
+  dom.page.classList.add("modal-open");
 }
 
 export function closeModal(modal) {
   modal.classList.remove("open");
-  page.classList.remove("modal-open");
+  dom.page.classList.remove("modal-open");
 }

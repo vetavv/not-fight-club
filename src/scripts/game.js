@@ -27,19 +27,9 @@ class Game {
   }
 
   transition(event) {
-    console.log(this.state, event);
     switch (this.state) {
       case STATES.IDLE:
         if (event === EVENTS.START_CLICKED) {
-          // if (this.hero.name) {
-          this.state = STATES.READY;
-          // } else {
-          //   this.state = STATES.AUTHORIZATION;
-          // }
-        }
-        break;
-      case STATES.AUTHORIZATION:
-        if (event === EVENTS.AUTHORIZATION_CONFIRMED) {
           this.state = STATES.READY;
         }
         break;
@@ -65,7 +55,6 @@ class Game {
       default:
         break;
     }
-    console.log(this.state);
   }
 }
 

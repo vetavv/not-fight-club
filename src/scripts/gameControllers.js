@@ -2,8 +2,6 @@ import { enemies, heroes } from "./heroes.js";
 import {
   fillList,
   setActiveCharacter,
-  updateBattleBlock,
-  updateProfile,
   switchOverBlocks,
   fillForm,
   updateLifeBar,
@@ -23,9 +21,6 @@ import {
   formBtn,
   heroLifeBar,
   enemyLifeBar,
-  blocks,
-  heroImgBattle,
-  enemyImgBattle,
   heroLifeBattle,
   enemyLifeBattle,
   enemyCurrentValue,
@@ -39,6 +34,7 @@ import {
   attackInfo,
   authForm,
 } from "./domElements.js";
+
 import * as dom from "./domElements.js";
 import * as view from "./gameView.js";
 
@@ -46,7 +42,7 @@ export function render(game) {
   console.log(game);
   switch (game.state) {
     case STATES.IDLE:
-      fillForm(form, game.hero.info, game.enemy.info);
+      fillForm(game.hero.info, game.enemy.info);
       updateLifeBar(heroLifeBar, game.hero.currentLife, game.hero.info.life);
       updateLifeBar(enemyLifeBar, game.enemy.currentLife, game.enemy.info.life);
       heroLifeBattle.textContent = game.hero.info.life;
@@ -61,11 +57,6 @@ export function render(game) {
       attackInfo.textContent = `Please choose ${
         game.hero.info.attackZonesCount
       } zone${game.hero.info.attackZonesCount > 1 ? "s" : ""}`;
-      break;
-
-    case STATES.AUTHORIZATION:
-      openModal(auth);
-      authForm.username.focus();
       break;
 
     case STATES.READY:
@@ -121,10 +112,8 @@ export function initGameUI(game) {
   setActiveCharacter(heroesList, game.hero.info.id);
   setActiveCharacter(enemiesList, game.enemy.info.id);
 
-  updateProfile(game.hero.info);
-
-  updateBattleBlock(heroImgBattle, heroLifeBattle, game.hero.info);
-  updateBattleBlock(enemyImgBattle, enemyLifeBattle, game.enemy.info);
+  updateDomHeroInfo(game);
+  updateDomEnemyInfo(game);
 
   heroCurrentValue.textContent = game.hero.currentLife;
   enemyCurrentValue.textContent = game.enemy.currentLife;
@@ -238,7 +227,7 @@ export function updateDomEnemyInfo(game) {
     enemyDefensePower.textContent = game.enemy.info.defenseZonesCount;
   });
 
-  view.fillForm(dom.form, game.hero.info, game.enemy.info);
+  view.fillForm(game.hero.info, game.enemy.info);
 }
 
 export function updateDomHeroInfo(game) {
@@ -264,7 +253,7 @@ export function updateDomHeroInfo(game) {
     heroDefensePower.textContent = game.hero.info.defenseZonesCount;
   });
 
-  view.fillForm(dom.form, game.hero.info, game.enemy.info);
+  view.fillForm(game.hero.info, game.enemy.info);
 
   const hint = (num) => `Please choose ${num} zone${num > 1 ? "s" : ""}`;
   dom.defenseInfo.textContent = hint(game.hero.info.defenseZonesCount);

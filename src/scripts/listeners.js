@@ -16,6 +16,7 @@ import {
   updateDomEnemyInfo,
   updateDomHeroInfo,
 } from "./gameControllers.js";
+import * as controllers from "./gameControllers.js";
 
 export default (game) => {
   // for chrome bag with custom cursor
@@ -165,14 +166,6 @@ export default (game) => {
     game.hero.currentLife = 0;
 
     game.transition(EVENTS.RESULT_DEAD);
-    render(game);
-  });
-
-  dom.chooseEnemyBtn.addEventListener("click", (e) => {
-    dom.chooseEnemyBlock.classList.remove("wide");
-    dom.chooseHeroBlock.classList.remove("wide");
-
-    game.transition(EVENTS.AUTHORIZATION_CONFIRMED);
     render(game);
   });
 };
