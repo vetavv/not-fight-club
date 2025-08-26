@@ -55,7 +55,7 @@ export default (game) => {
 
   dom.changeBtn.addEventListener("click", (e) => {
     const blocks = NAV_MAP[e.target.dataset.navTo];
-    view.switchOverBlocks(...blocks);
+    view.switchOverBlocks(blocks);
   });
 
   dom.changeNameBtn.addEventListener("click", () => {
@@ -121,7 +121,7 @@ export default (game) => {
         render(game);
       } else {
         const blocks = NAV_MAP[nextPage];
-        view.switchOverBlocks(...blocks);
+        view.switchOverBlocks(blocks);
       }
     }
   });

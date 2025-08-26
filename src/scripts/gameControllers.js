@@ -1,104 +1,56 @@
 import { enemies, heroes } from "./heroes.js";
-import {
-  fillList,
-  setActiveCharacter,
-  switchOverBlocks,
-  fillForm,
-  updateLifeBar,
-  openModal,
-} from "./gameView.js";
+import { STATES, EVENTS, NAV_MAP } from "./gameConstants.js";
 import {
   resetEnemyMove,
   calcLifes,
   generateEnemyMove,
   isFormValid,
 } from "./gameLogic.js";
-import { STATES, EVENTS, NAV_MAP } from "./gameConstants.js";
-import {
-  startBlock,
-  figthBlock,
-  form,
-  formBtn,
-  heroLifeBar,
-  enemyLifeBar,
-  heroLifeBattle,
-  enemyLifeBattle,
-  enemyCurrentValue,
-  heroCurrentValue,
-  winModal,
-  loseModal,
-  enemyNameBattle,
-  heroLog,
-  enemyLog,
-  defenseInfo,
-  attackInfo,
-  authForm,
-} from "./domElements.js";
-
 import * as dom from "./domElements.js";
 import * as view from "./gameView.js";
 
 export function render(game) {
-  console.log(game);
   switch (game.state) {
     case STATES.IDLE:
-      fillForm(game.hero.info, game.enemy.info);
-      updateLifeBar(heroLifeBar, game.hero.currentLife, game.hero.info.life);
-      updateLifeBar(enemyLifeBar, game.enemy.currentLife, game.enemy.info.life);
-      heroLifeBattle.textContent = game.hero.info.life;
-      enemyLifeBattle.textContent = game.enemy.info.life;
-      enemyCurrentValue.textContent = game.enemy.currentLife;
-      heroCurrentValue.textContent = game.hero.currentLife;
-      heroLog.textContent = "";
-      enemyLog.textContent = "";
-      defenseInfo.textContent = `Please choose ${
-        game.hero.info.defenseZonesCount
-      } zone${game.hero.info.defenseZonesCount > 1 ? "s" : ""}`;
-      attackInfo.textContent = `Please choose ${
-        game.hero.info.attackZonesCount
-      } zone${game.hero.info.attackZonesCount > 1 ? "s" : ""}`;
+      game.hero.currentLife = game.hero.info.life;
+      game.enemy.currentLife = game.enemy.info.life;
+      updateLifeBars(game);
+      dom.heroLog.textContent = "";
+      dom.enemyLog.textContent = "";
+      game.currentAttackZones = [];
+      game.currentDefenseZones = [];
+      view.fillForm(game.hero.info, game.enemy.info);
       break;
 
     case STATES.READY:
       resetEnemyMove(game);
-      switchOverBlocks(figthBlock);
+      view.switchOverBlocks(NAV_MAP["battle"]);
       break;
 
     case STATES.FIGHT:
       generateEnemyMove(game);
       calcLifes(game);
-      if (game.hero.currentLife <= 0 || game.enemy.currentLife <= 0) {
-        game.transition(EVENTS.RESULT_DEAD);
-        render(game);
-      } else {
-        game.transition(EVENTS.RESULT_ALIVE);
-        render(game);
-      }
+      updateLifeBars(game);
+      const event =
+        game.hero.currentLife <= 0 || game.enemy.currentLife <= 0
+          ? EVENTS.RESULT_DEAD
+          : EVENTS.RESULT_ALIVE;
+      game.transition(event);
+      render(game);
       break;
 
     case STATES.FINISH:
-      formBtn.setAttribute("disabled", "disabled");
-      console.log("finish");
+      dom.formBtn.setAttribute("disabled", "disabled");
       if (game.hero.currentLife === 0) {
         game.fails += 1;
-        openModal(loseModal);
-        updateLifeBar(heroLifeBar, game.hero.currentLife, game.hero.info.life);
-        heroCurrentValue.textContent = game.hero.currentLife;
+        view.openModal(dom.loseModal);
       } else {
         game.wins += 1;
-        openModal(winModal);
-        updateLifeBar(
-          enemyLifeBar,
-          game.enemy.currentLife,
-          game.enemy.info.life
-        );
+        view.openModal(dom.winModal);
       }
-      document.querySelector("#statWins").textContent = game.wins;
-      document.querySelector("#statFails").textContent = game.fails;
-      resetRound(game);
-      // game.transition(EVENTS.RESULT_CONFIRMED);
-      // console.log(game.state);
-      // render(game);
+      updateLifeBars(game);
+      dom.statWins.textContent = game.wins;
+      dom.statFails.textContent = game.fails;
       break;
     default:
       break;
@@ -106,20 +58,15 @@ export function render(game) {
 }
 
 export function initGameUI(game) {
-  fillList(heroesList, heroes);
-  fillList(enemiesList, enemies);
-
-  setActiveCharacter(heroesList, game.hero.info.id);
-  setActiveCharacter(enemiesList, game.enemy.info.id);
-
+  view.fillList(dom.heroesList, heroes);
+  view.fillList(dom.enemiesList, enemies);
+  view.setActiveCharacter(dom.heroesList, game.hero.info.id);
+  view.setActiveCharacter(dom.enemiesList, game.enemy.info.id);
   updateDomHeroInfo(game);
   updateDomEnemyInfo(game);
-
-  heroCurrentValue.textContent = game.hero.currentLife;
-  enemyCurrentValue.textContent = game.enemy.currentLife;
-  enemyNameBattle.textContent = game.enemy.info.name;
-  validateForm(form, game.hero.info);
-  switchOverBlocks(startBlock);
+  validateForm(dom.form, game.hero.info);
+  view.switchOverBlocks(NAV_MAP["home"]);
+  view.fillForm(game.hero.info, game.enemy.info);
 }
 
 export function saveFormData(form, game) {
@@ -153,7 +100,7 @@ export function handleNavClick(navBtn, game) {
 
   if (game.state === STATES.FINISH || game.state === STATES.IDLE) {
     const blocks = NAV_MAP[navBtn.dataset.navTo];
-    view.switchOverBlocks(...blocks);
+    view.switchOverBlocks(blocks);
     view.activateNavBtn(navBtn);
   }
 }
@@ -163,7 +110,7 @@ export function handleResultModalBtn(e, game) {
   const blocks = NAV_MAP["profile"];
 
   view.closeModal(modal);
-  view.switchOverBlocks(...blocks);
+  view.switchOverBlocks(blocks);
 
   game.transition(EVENTS.EXIT_BATTLE);
   render(game);
@@ -258,4 +205,19 @@ export function updateDomHeroInfo(game) {
   const hint = (num) => `Please choose ${num} zone${num > 1 ? "s" : ""}`;
   dom.defenseInfo.textContent = hint(game.hero.info.defenseZonesCount);
   dom.attackInfo.textContent = hint(game.hero.info.attackZonesCount);
+}
+
+export function updateLifeBars(game) {
+  view.updateLifeBar(
+    dom.heroLifeBar,
+    dom.heroCurrentValue,
+    game.hero.currentLife,
+    game.hero.info.life
+  );
+  view.updateLifeBar(
+    dom.enemyLifeBar,
+    dom.enemyCurrentValue,
+    game.enemy.currentLife,
+    game.enemy.info.life
+  );
 }

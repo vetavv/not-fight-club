@@ -16,7 +16,7 @@ export function resetNavBtns() {
   });
 }
 
-export function switchOverBlocks(...currentBlocks) {
+export function switchOverBlocks(currentBlocks) {
   resetNavBtns();
   hideBlocks(dom.blocks);
   showBlocks(currentBlocks);
@@ -90,9 +90,10 @@ function createElement(name, ...classes) {
   return el;
 }
 
-export function updateLifeBar(bar, value, life) {
+export function updateLifeBar(domBar, domValue, value, life) {
   const percent = (value * 100) / life;
-  bar.style.right = `${100 - percent}%`;
+  domBar.style.right = `${100 - percent}%`;
+  domValue.textContent = value;
 }
 
 export function setActiveCharacter(list, id) {

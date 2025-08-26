@@ -5,6 +5,7 @@ import {
   chooseHeroBlock,
   chooseEnemyBlock,
 } from "./domElements.js";
+
 export const STATES = {
   IDLE: "idle",
   READY: "ready",

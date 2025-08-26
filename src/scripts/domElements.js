@@ -107,3 +107,6 @@ export const enemyDamagePowers = document.querySelectorAll(
 export const enemyImages = document.querySelectorAll(
   '[data-bind="enemyImage"]'
 );
+
+export const statWins = document.querySelector("#statWins");
+export const statFails = document.querySelector("#statFails");

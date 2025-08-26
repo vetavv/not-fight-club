@@ -1,6 +1,5 @@
 import { createUniqueRandomGenerator } from "./utils.js";
 
-import { updateLifeBar } from "./gameView.js";
 import {
   enemyCurrentValue,
   heroCurrentValue,
@@ -73,12 +72,6 @@ export function calcLifes(game) {
 
   if (game.enemy.currentLife < 0) game.enemy.currentLife = 0;
   if (game.hero.currentLife < 0) game.hero.currentLife = 0;
-
-  updateLifeBar(enemyLifeBar, game.enemy.currentLife, game.enemy.info.life);
-  updateLifeBar(heroLifeBar, game.hero.currentLife, game.hero.info.life);
-
-  enemyCurrentValue.textContent = game.enemy.currentLife;
-  heroCurrentValue.textContent = game.hero.currentLife;
 }
 
 function calcDamage(player1, player2, attackZones, defenseZones, block) {
