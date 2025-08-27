@@ -14,16 +14,22 @@ export function render(game) {
     case STATES.IDLE:
       game.hero.currentLife = game.hero.info.life;
       game.enemy.currentLife = game.enemy.info.life;
-      updateLifeBars(game);
+
       dom.heroLog.textContent = "";
       dom.enemyLog.textContent = "";
-      game.currentAttackZones = [];
-      game.currentDefenseZones = [];
-      view.fillForm(game.hero.info, game.enemy.info);
+      game.hero.currentAttackZones = [];
+      game.hero.currentDefenseZones = [];
+
+      dom.statWins.textContent = game.wins;
+      dom.statFails.textContent = game.fails;
+
       break;
 
     case STATES.READY:
       resetEnemyMove(game);
+      view.fillForm(game.hero, game.enemy.info);
+      validateForm(dom.form, game.hero.info);
+      updateLifeBars(game);
       view.switchOverBlocks(NAV_MAP["battle"]);
       break;
 
@@ -31,26 +37,34 @@ export function render(game) {
       generateEnemyMove(game);
       calcLifes(game);
       updateLifeBars(game);
-      const event =
-        game.hero.currentLife <= 0 || game.enemy.currentLife <= 0
-          ? EVENTS.RESULT_DEAD
-          : EVENTS.RESULT_ALIVE;
-      game.transition(event);
+
+      if (game.hero.currentLife <= 0) {
+        game.fails += 1;
+        dom.formBtn.setAttribute("disabled", "disabled");
+        dom.statFails.textContent = game.fails;
+        game.transition(EVENTS.RESULT_DEAD);
+      } else if (game.enemy.currentLife <= 0) {
+        game.wins += 1;
+        dom.formBtn.setAttribute("disabled", "disabled");
+        dom.statWins.textContent = game.wins;
+        game.transition(EVENTS.RESULT_DEAD);
+      } else {
+        game.transition(EVENTS.RESULT_ALIVE);
+      }
+      game.updateLocalStorage();
       render(game);
       break;
 
     case STATES.FINISH:
-      dom.formBtn.setAttribute("disabled", "disabled");
-      if (game.hero.currentLife === 0) {
-        game.fails += 1;
-        view.openModal(dom.loseModal);
-      } else {
-        game.wins += 1;
-        view.openModal(dom.winModal);
-      }
+      view.switchOverBlocks(NAV_MAP["battle"]);
       updateLifeBars(game);
-      dom.statWins.textContent = game.wins;
-      dom.statFails.textContent = game.fails;
+      if (game.hero.currentLife === 0) {
+        view.openModal(dom.loseModal);
+        dom.formBtn.setAttribute("disabled", "disabled");
+      } else {
+        view.openModal(dom.winModal);
+        dom.formBtn.setAttribute("disabled", "disabled");
+      }
       break;
     default:
       break;
@@ -60,13 +74,12 @@ export function render(game) {
 export function initGameUI(game) {
   view.fillList(dom.heroesList, heroes);
   view.fillList(dom.enemiesList, enemies);
+  updateDomName(game.hero.name);
   view.setActiveCharacter(dom.heroesList, game.hero.info.id);
   view.setActiveCharacter(dom.enemiesList, game.enemy.info.id);
   updateDomHeroInfo(game);
   updateDomEnemyInfo(game);
-  validateForm(dom.form, game.hero.info);
   view.switchOverBlocks(NAV_MAP["home"]);
-  view.fillForm(game.hero.info, game.enemy.info);
 }
 
 export function saveFormData(form, game) {
@@ -183,7 +196,7 @@ export function updateDomEnemyInfo(game) {
     enemyDefensePower.textContent = game.enemy.info.defenseZonesCount;
   });
 
-  view.fillForm(game.hero.info, game.enemy.info);
+  view.fillForm(game.hero, game.enemy.info);
 }
 
 export function updateDomHeroInfo(game) {
@@ -209,7 +222,7 @@ export function updateDomHeroInfo(game) {
     heroDefensePower.textContent = game.hero.info.defenseZonesCount;
   });
 
-  view.fillForm(game.hero.info, game.enemy.info);
+  view.fillForm(game.hero, game.enemy.info);
 
   const hint = (num) => `Please choose ${num} zone${num > 1 ? "s" : ""}`;
   dom.defenseInfo.textContent = hint(game.hero.info.defenseZonesCount);

@@ -108,29 +108,40 @@ export function setActiveCharacter(list, id) {
 }
 
 export function fillForm(hero, enemy) {
-  const attackType = hero.attackZonesCount === 1 ? "radio" : "checkbox";
-  const defenseType = hero.defenseZonesCount === 1 ? "radio" : "checkbox";
+  const attackType = hero.info.attackZonesCount === 1 ? "radio" : "checkbox";
+  const defenseType = hero.info.defenseZonesCount === 1 ? "radio" : "checkbox";
 
   dom.attackZones.textContent = "";
   dom.defenseZones.textContent = "";
 
   enemy.zones.forEach((zone) => {
-    const input = createInput(zone, "attack", attackType);
+    const input = createInput(
+      zone,
+      "attack",
+      attackType,
+      hero.currentAttackZones.includes(zone)
+    );
     dom.attackZones.append(input);
   });
 
-  hero.zones.forEach((zone) => {
-    const input = createInput(zone, "defense", defenseType);
+  hero.info.zones.forEach((zone) => {
+    const input = createInput(
+      zone,
+      "defense",
+      defenseType,
+      hero.currentDefenseZones.includes(zone) || ""
+    );
     dom.defenseZones.append(input);
   });
 }
 
-function createInput(value, name, type) {
+function createInput(value, name, type, checked) {
   const label = createElement("label", "form__input");
   const input = createElement("input");
   input.setAttribute("type", type);
   input.setAttribute("value", value);
   input.setAttribute("name", name);
+  if (checked) input.setAttribute("checked", checked);
   const control = createElement("span", "form__control");
   const spanName = createElement("span", "form__label");
   spanName.textContent = value;

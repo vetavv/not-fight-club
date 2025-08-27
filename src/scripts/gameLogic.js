@@ -42,6 +42,7 @@ export function generateEnemyMove(game) {
 export function resetEnemyMove(game) {
   game.enemy.currentAttackZones = [];
   game.enemy.currentDefenseZones = [];
+  game.updateLocalStorage();
 }
 
 export function calcLifes(game) {
@@ -65,6 +66,8 @@ export function calcLifes(game) {
 
   if (game.enemy.currentLife < 0) game.enemy.currentLife = 0;
   if (game.hero.currentLife < 0) game.hero.currentLife = 0;
+
+  game.updateLocalStorage();
 }
 
 function calcDamage(player1, player2, attackZones, defenseZones, block) {

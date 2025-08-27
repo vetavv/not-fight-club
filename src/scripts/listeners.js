@@ -21,7 +21,6 @@ export default (game) => {
   });
 
   dom.navHome.addEventListener("click", (e) => {
-    console.log("here");
     controller.handleNavClick(e.target, game);
   });
 
@@ -65,6 +64,8 @@ export default (game) => {
 
   dom.form.addEventListener("input", () => {
     controller.validateForm(form, game.hero.info);
+    controller.saveFormData(form, game);
+    game.updateLocalStorage();
   });
 
   dom.heroesList.addEventListener("click", (e) => {
@@ -104,14 +105,19 @@ export default (game) => {
     input.value = "";
 
     game.isAuthorized = true;
+    game.updateLocalStorage();
 
     if (nextPage) {
       if (nextPage === "battle") {
         view.switchOverBlocks(NAV_MAP["settings"]);
         dom.chooseEnemyBtn.classList.add("show");
+        view.activateNavBtn(dom.navSettings);
       } else {
         const blocks = NAV_MAP[nextPage];
         view.switchOverBlocks(blocks);
+        view.activateNavBtn(
+          document.querySelector(`[data-nav-to="${nextPage}"]`)
+        );
       }
     }
   });
@@ -128,6 +134,7 @@ export default (game) => {
     game.transition(EVENTS.START_CLICKED);
     controller.render(game);
     dom.chooseEnemyBtn.classList.remove("show");
+    view.resetNavBtns();
   });
 
   dom.winModalBtn.addEventListener("click", (e) => {
