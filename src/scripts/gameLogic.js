@@ -1,15 +1,21 @@
 import { createUniqueRandomGenerator } from "./utils.js";
 import { heroLog, enemyLog } from "./domElements.js";
+import { EVENTS, STATES } from "./gameConstants.js";
 
 export function isFormValid(
   attackCount,
   defenseCount,
   attackZones,
-  defenseZones
+  defenseZones,
+  state
 ) {
   let checkedAttacks = calcCheckedInputs(attackZones, attackCount);
   let checkedDefenses = calcCheckedInputs(defenseZones, defenseCount);
-  return checkedAttacks === attackCount && checkedDefenses === defenseCount;
+  return (
+    checkedAttacks === attackCount &&
+    checkedDefenses === defenseCount &&
+    state !== STATES.FINISH
+  );
 }
 
 function calcCheckedInputs(group, count) {

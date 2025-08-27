@@ -29,7 +29,7 @@ export function render(game) {
     case STATES.READY:
       resetEnemyMove(game);
       view.fillForm(game.hero, game.enemy.info);
-      validateForm(dom.form, game.hero.info);
+      validateForm(dom.form, game.hero.info, game.state);
       updateLifeBars(game);
       view.switchOverBlocks(NAV_MAP["battle"]);
       changeCharacterState(dom.heroImgBattle, game.hero.info.dirname, "idle");
@@ -132,7 +132,7 @@ export function saveFormData(form, game) {
   game.hero.currentAttackZones = attackZones;
 }
 
-export function validateForm(form, hero) {
+export function validateForm(form, hero, state) {
   const btn = form.querySelector("button[type=submit]");
   btn.toggleAttribute(
     "disabled",
@@ -140,7 +140,8 @@ export function validateForm(form, hero) {
       hero.attackZonesCount,
       hero.defenseZonesCount,
       dom.attackZones,
-      dom.defenseZones
+      dom.defenseZones,
+      state
     )
   );
 }

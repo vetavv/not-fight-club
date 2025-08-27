@@ -63,7 +63,7 @@ export default (game) => {
   });
 
   dom.form.addEventListener("input", () => {
-    controller.validateForm(form, game.hero.info);
+    controller.validateForm(form, game.hero.info, game.state);
     controller.saveFormData(form, game);
     game.updateLocalStorage();
   });
