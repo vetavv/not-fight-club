@@ -10,6 +10,7 @@ import * as dom from "./domElements.js";
 import * as view from "./gameView.js";
 
 export function render(game) {
+  console.log(game.state);
   switch (game.state) {
     case STATES.IDLE:
       game.hero.currentLife = game.hero.info.life;
@@ -31,6 +32,8 @@ export function render(game) {
       validateForm(dom.form, game.hero.info);
       updateLifeBars(game);
       view.switchOverBlocks(NAV_MAP["battle"]);
+      changeCharacterState(dom.heroImgBattle, game.hero.info.dirname, "idle");
+      changeCharacterState(dom.enemyImgBattle, game.enemy.info.dirname, "idle");
       break;
 
     case STATES.FIGHT:
@@ -43,28 +46,66 @@ export function render(game) {
         dom.formBtn.setAttribute("disabled", "disabled");
         dom.statFails.textContent = game.fails;
         game.transition(EVENTS.RESULT_DEAD);
+        render(game);
       } else if (game.enemy.currentLife <= 0) {
         game.wins += 1;
         dom.formBtn.setAttribute("disabled", "disabled");
         dom.statWins.textContent = game.wins;
+
         game.transition(EVENTS.RESULT_DEAD);
+        render(game);
       } else {
         game.transition(EVENTS.RESULT_ALIVE);
+        render(game);
       }
       game.updateLocalStorage();
-      render(game);
+
       break;
 
     case STATES.FINISH:
       view.switchOverBlocks(NAV_MAP["battle"]);
       updateLifeBars(game);
       if (game.hero.currentLife === 0) {
-        view.openModal(dom.loseModal);
+        changeCharacterState(dom.heroImgBattle, game.hero.info.dirname, "dead");
+        dom.heroImgBattle.addEventListener(
+          "animationend",
+          () => {
+            view.openModal(dom.loseModal);
+          },
+          { once: true }
+        );
         dom.formBtn.setAttribute("disabled", "disabled");
       } else {
-        view.openModal(dom.winModal);
+        changeCharacterState(
+          dom.enemyImgBattle,
+          game.enemy.info.dirname,
+          "dead"
+        );
+        dom.enemyImgBattle.addEventListener(
+          "animationend",
+          () => {
+            view.openModal(dom.winModal);
+          },
+          { once: true }
+        );
         dom.formBtn.setAttribute("disabled", "disabled");
       }
+      break;
+    default:
+      break;
+  }
+}
+
+function changeCharacterState(domImg, dirname, state) {
+  domImg.classList = "character__img";
+  switch (state) {
+    case "idle":
+      domImg.style.backgroundImage = `url('./assets/images/heroes/${dirname}/Idle.png')`;
+      domImg.classList.add("idle");
+      break;
+    case "dead":
+      domImg.style.backgroundImage = `url('./assets/images/heroes/${dirname}/Death.png')`;
+      domImg.classList.add("dead");
       break;
     default:
       break;

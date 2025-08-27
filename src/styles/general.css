@@ -285,6 +285,20 @@ main {
   }
 }
 
+.dead {
+  animation: dead 0.9s steps(5, end) forwards;
+}
+
+@keyframes dead {
+  from {
+    background-position: 0;
+  }
+
+  to {
+    background-position: calc(var(--hero-size) * -5);
+  }
+}
+
 .character::before {
   content: "";
   position: absolute;
