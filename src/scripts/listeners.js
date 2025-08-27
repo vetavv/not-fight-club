@@ -170,7 +170,10 @@ export default (game) => {
   dom.cancel.addEventListener("click", (e) => {
     const modal = e.target.closest(".modal");
     view.closeModal(modal);
+
     game.hero.currentLife = 0;
+    game.fails += 1;
+    dom.statFails.textContent = game.fails;
 
     game.transition(EVENTS.RESULT_DEAD);
     controller.render(game);

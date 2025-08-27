@@ -29,6 +29,9 @@ class Game {
 
     this.isAuthorized = localStorage.getItem("isAuthorized") ?? false;
     this.hero.name = JSON.parse(localStorage.getItem("hero"))?.name ?? null;
+
+    this.logsHero = JSON.parse(localStorage.getItem("logsHero")) ?? [];
+    this.logsEnemy = JSON.parse(localStorage.getItem("logsEnemy")) ?? [];
   }
 
   updateLocalStorage() {
@@ -38,6 +41,8 @@ class Game {
     localStorage.setItem("hero", JSON.stringify(this.hero));
     localStorage.setItem("enemy", JSON.stringify(this.enemy));
     localStorage.setItem("isAuthorized", String(this.isAuthorized));
+    localStorage.setItem("logsHero", JSON.stringify(this.logsHero));
+    localStorage.setItem("logsEnemy", JSON.stringify(this.logsEnemy));
   }
 
   transition(event) {
@@ -45,6 +50,8 @@ class Game {
       case STATES.IDLE:
         if (event === EVENTS.START_CLICKED) {
           this.state = STATES.READY;
+          this.logsEnemy = [];
+          this.logsHero = [];
           this.updateLocalStorage();
         }
         break;

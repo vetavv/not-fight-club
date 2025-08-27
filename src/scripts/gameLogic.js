@@ -53,18 +53,22 @@ export function resetEnemyMove(game) {
 
 export function calcLifes(game) {
   const enemyDamage = calcDamage(
+    game,
     game.hero,
     game.enemy,
     game.hero.currentAttackZones,
     game.enemy.currentDefenseZones,
-    enemyLog
+    enemyLog,
+    game.logsEnemy
   );
   const heroDamage = calcDamage(
+    game,
     game.enemy,
     game.hero,
     game.enemy.currentAttackZones,
     game.hero.currentDefenseZones,
-    heroLog
+    heroLog,
+    game.logsHero
   );
 
   game.enemy.currentLife -= enemyDamage;
@@ -76,22 +80,62 @@ export function calcLifes(game) {
   game.updateLocalStorage();
 }
 
-function calcDamage(player1, player2, attackZones, defenseZones, block) {
+function calcDamage(
+  game,
+  player1,
+  player2,
+  attackZones,
+  defenseZones,
+  block,
+  gameLogs
+) {
   let damage = 0;
 
   const ul = document.createElement("ul");
   ul.classList.add("log__block");
-
+  const logs = [];
   attackZones.forEach((zone) => {
     if (!defenseZones.includes(zone)) {
       damage += Number(player1.info.damagePower);
       logSuccess(player1, player2, zone, ul);
+      logs.push(createLog(player1, player2, zone, true));
     } else {
       logFail(player1, player2, zone, ul);
+      logs.push(createLog(player1, player2, zone, false));
     }
   });
+  addLogs(game, gameLogs, logs);
   block.prepend(ul);
   return damage;
+}
+
+function createLog(player1, player2, zone, success) {
+  return {
+    player1: player1,
+    player2: player2,
+    zone: zone,
+    success: success,
+  };
+}
+
+function addLogs(game, gameLog, logs) {
+  gameLog.push(logs);
+  game.updateLocalStorage();
+}
+
+export function fillLogs(gameLogs, domLogs) {
+  gameLogs.forEach((gameLog) => {
+    const ul = document.createElement("ul");
+    ul.classList.add("log__block");
+    gameLog.forEach((data) => {
+      if (data.success) {
+        logSuccess(data.player1, data.player2, data.zone, ul);
+      } else {
+        logFail(data.player1, data.player2, data.zone, ul);
+      }
+    });
+    domLogs.prepend(ul);
+  });
 }
 
 function logSuccess(player1, player2, zone, block) {

@@ -5,6 +5,7 @@ import {
   calcLifes,
   generateEnemyMove,
   isFormValid,
+  fillLogs,
 } from "./gameLogic.js";
 import * as dom from "./domElements.js";
 import * as view from "./gameView.js";
@@ -37,29 +38,45 @@ export function render(game) {
       break;
 
     case STATES.FIGHT:
+      view.switchOverBlocks(NAV_MAP["battle"]);
       generateEnemyMove(game);
       calcLifes(game);
       updateLifeBars(game);
+
+      let event;
 
       if (game.hero.currentLife <= 0) {
         game.fails += 1;
         dom.formBtn.setAttribute("disabled", "disabled");
         dom.statFails.textContent = game.fails;
-        game.transition(EVENTS.RESULT_DEAD);
-        render(game);
+        event = EVENTS.RESULT_DEAD;
       } else if (game.enemy.currentLife <= 0) {
         game.wins += 1;
         dom.formBtn.setAttribute("disabled", "disabled");
         dom.statWins.textContent = game.wins;
-
-        game.transition(EVENTS.RESULT_DEAD);
-        render(game);
+        event = EVENTS.RESULT_DEAD;
       } else {
-        game.transition(EVENTS.RESULT_ALIVE);
-        render(game);
+        event = EVENTS.RESULT_ALIVE;
       }
       game.updateLocalStorage();
-
+      changeCharacterState(dom.heroImgBattle, game.hero.info.dirname, "attack");
+      changeCharacterState(
+        dom.enemyImgBattle,
+        game.enemy.info.dirname,
+        "attack"
+      );
+      dom.formBtn.classList.add("waiting");
+      dom.formBtn.setAttribute("disabled", "disabled");
+      dom.enemyImgBattle.addEventListener(
+        "animationend",
+        () => {
+          dom.formBtn.classList.remove("waiting");
+          dom.formBtn.removeAttribute("disabled");
+          game.transition(event);
+          render(game);
+        },
+        { once: true }
+      );
       break;
 
     case STATES.FINISH:
@@ -107,6 +124,13 @@ function changeCharacterState(domImg, dirname, state) {
       domImg.style.backgroundImage = `url('./assets/images/heroes/${dirname}/Death.png')`;
       domImg.classList.add("dead");
       break;
+    case "attack":
+      if (dirname === "jellyfish") {
+        domImg.classList.add("jellyfish");
+      }
+      domImg.style.backgroundImage = `url('./assets/images/heroes/${dirname}/Attack.png')`;
+      domImg.classList.add("attack");
+      break;
     default:
       break;
   }
@@ -121,6 +145,8 @@ export function initGameUI(game) {
   updateDomHeroInfo(game);
   updateDomEnemyInfo(game);
   view.switchOverBlocks(NAV_MAP["home"]);
+  fillLogs(game.logsHero, dom.heroLog);
+  fillLogs(game.logsEnemy, dom.enemyLog);
 }
 
 export function saveFormData(form, game) {

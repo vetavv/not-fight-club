@@ -299,6 +299,34 @@ main {
   }
 }
 
+.attack {
+  animation: attack 0.9s steps(5, end) forwards;
+}
+
+@keyframes attack {
+  from {
+    background-position: 0;
+  }
+
+  to {
+    background-position: calc(var(--hero-size) * -5);
+  }
+}
+
+.attack.jellyfish {
+  animation: attack-jellyfish 0.9s steps(3, end) forwards;
+}
+
+@keyframes attack-jellyfish {
+  from {
+    background-position: 0;
+  }
+
+  to {
+    background-position: calc(var(--hero-size) * -3);
+  }
+}
+
 .character::before {
   content: "";
   position: absolute;
@@ -539,6 +567,31 @@ main {
 .form__btn {
   margin-left: 50%;
   transform: translateX(-50%);
+}
+
+.form__btn.waiting {
+  color: var(--color-accent);
+  position: relative;
+}
+
+.form__btn.waiting::before {
+  content: "";
+  color: #fff;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-image: url("./../assets/images/decor/waiting.svg");
+  background-size: 100%;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .form__title {
