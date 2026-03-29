@@ -1,0 +1,7 @@
+:root {
+  --header-height: 100px;
+  --color-accent: #ff319b;
+  --color-bg: #fff;
+  --color-bg-tranparent: rgb(255, 255, 255, 0.6);
+  --color-border: #000;
+}
